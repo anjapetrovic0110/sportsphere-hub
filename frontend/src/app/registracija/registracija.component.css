@@ -1,0 +1,190 @@
+.registracija {
+  display: grid;
+
+  grid-template-columns: minmax(260px, 0.75fr) minmax(320px, 1.25fr);
+
+  gap: clamp(2rem, 7vw, 7rem);
+
+  padding: clamp(3rem, 7vw, 7rem);
+}
+
+.oznaka {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.15em;
+}
+
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 5vw, 5rem);
+
+  line-height: 1;
+}
+
+.uvod > p:last-child,
+.pomoc {
+  color: #5a6f67;
+
+  line-height: 1.6;
+}
+
+form {
+  background: white;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 16px;
+
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+fieldset {
+  border: 0;
+
+  border-top: 1px solid #dce4df;
+
+  margin: 0 0 2rem;
+
+  padding: 1.5rem 0 0;
+}
+
+legend {
+  color: #12372a;
+
+  font-size: 1.15rem;
+
+  font-weight: bold;
+
+  padding-right: 1rem;
+}
+
+fieldset > label,
+.sportovi label {
+  margin-right: 1.25rem;
+}
+
+.polja {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 1rem;
+}
+
+.polja label,
+.slika {
+  color: #345247;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.45rem;
+}
+
+input:not([type='radio']):not([type='checkbox']):not([type='file']) {
+  border: 1px solid #aabdb5;
+
+  border-radius: 8px;
+
+  padding: 0.75rem;
+
+  width: 100%;
+}
+
+input.neispravno {
+  border-color: #a23030 !important;
+
+  background: #fff8f8;
+}
+
+.greska-polja {
+  color: #a23030;
+
+  line-height: 1.3;
+}
+
+.sportovi {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 0.8rem;
+}
+
+.organizacija {
+  margin-top: 2rem;
+}
+
+.slika {
+  margin: 1.5rem 0;
+}
+
+.pregled {
+  border-radius: 50%;
+
+  height: 100px;
+
+  object-fit: cover;
+
+  width: 100px;
+}
+
+.avatar-akcije {
+  align-items: center;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 0.8rem;
+
+  margin-bottom: 1rem;
+}
+.avatar-akcije button {
+  margin: 0;
+}
+.avatar-akcije small {
+  color: #5a6f67;
+}
+
+button {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 20px;
+
+  color: white;
+
+  cursor: pointer;
+
+  margin-top: 1.5rem;
+
+  padding: 0.85rem 1.4rem;
+}
+
+button:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.5;
+}
+
+.poruka {
+  color: #a23030;
+}
+.poruka.uspeh {
+  color: #197149;
+}
+
+@media (max-width: 820px) {
+  .registracija {
+    grid-template-columns: 1fr;
+  }
+  .polja {
+    grid-template-columns: 1fr;
+  }
+}

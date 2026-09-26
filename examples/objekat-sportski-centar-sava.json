@@ -1,0 +1,29 @@
+{
+  "name": "Sportski centar Sava",
+  "city": "Beograd",
+  "address": "Savski kej 12",
+  "description": "Višenamenski sportski centar sa zatvorenim terenima i prostorom za rekreaciju.",
+  "latitude": 44.8056,
+  "longitude": 20.4212,
+  "openingTime": "07:00",
+  "closingTime": "23:00",
+  "allowedNoShows": 3,
+  "resources": [
+    {
+      "name": "Zatvoreni fudbalski teren",
+      "type": "INDOOR_FIELD",
+      "capacity": 12,
+      "equipmentDescription": "Veštačka trava, golovi, mreže i svlačionice",
+      "hourlyPrice": 4800,
+      "sportIds": [1]
+    },
+    {
+      "name": "Košarkaška dvorana",
+      "type": "SPORTS_HALL",
+      "capacity": 24,
+      "equipmentDescription": "Koševi, semafor, tribine i svlačionice",
+      "hourlyPrice": 6200,
+      "sportIds": [2]
+    }
+  ]
+}

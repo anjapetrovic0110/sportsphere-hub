@@ -1,0 +1,54 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: sportsphere
+      MYSQL_USER: sportsphere
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Run python3 scripts/setup-env.py first}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Run python3 scripts/setup-env.py first}
+      TZ: Europe/Belgrade
+    ports:
+      - "127.0.0.1:${MYSQL_PORT:-3307}:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database/setup.sql:/docker-entrypoint-initdb.d/01-demo.sql:ro
+    healthcheck:
+     test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u sportsphere -p$$MYSQL_PASSWORD"]
+     interval: 5s
+     timeout: 5s
+     retries: 10
+     start_period: 20s
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    ports:
+      - "127.0.0.1:${MAIL_PORT:-1025}:1025"
+      - "127.0.0.1:${MAIL_UI_PORT:-8025}:8025"
+
+  backend:
+    build: ./backend
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/sportsphere?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Europe/Belgrade&useUnicode=true&characterEncoding=UTF-8
+      DB_USERNAME: sportsphere
+      DB_PASSWORD: ${DB_PASSWORD:?Run python3 scripts/setup-env.py first}
+      CORS_ALLOWED_ORIGIN: ${CORS_ALLOWED_ORIGIN:-http://localhost:4200}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:4200}
+      UPLOAD_DIRECTORY: /app/uploads
+      JWT_SECRET: ${JWT_SECRET:?Run python3 scripts/setup-env.py first}
+      JWT_EXPIRATION_MINUTES: ${JWT_EXPIRATION_MINUTES:-120}
+      MAIL_HOST: mailpit
+      MAIL_PORT: 1025
+      MAIL_FROM: ${MAIL_FROM:-noreply@sportsphere.local}
+      TZ: Europe/Belgrade
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-8080}:8080"
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+
+volumes:
+  mysql-data:

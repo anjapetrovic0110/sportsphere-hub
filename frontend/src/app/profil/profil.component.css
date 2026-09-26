@@ -1,0 +1,211 @@
+.zaglavlje {
+  background: #eff7f1;
+
+  padding: 3rem clamp(1.5rem, 8vw, 8rem);
+}
+.zaglavlje a {
+  color: #197149;
+}
+.zaglavlje p {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+
+  margin-top: 2rem;
+}
+.zaglavlje h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+
+  margin: 0.5rem 0;
+}
+.sadrzaj,
+.rezervacije {
+  padding: 3rem clamp(1.5rem, 8vw, 8rem);
+}
+form {
+  display: grid;
+
+  gap: 2rem;
+
+  max-width: 900px;
+}
+.slika {
+  align-items: center;
+
+  display: flex;
+
+  gap: 1.5rem;
+
+  flex-wrap: wrap;
+}
+.slika img,
+.avatar {
+  border-radius: 50%;
+
+  height: 120px;
+
+  object-fit: cover;
+
+  width: 120px;
+}
+.avatar {
+  align-items: center;
+
+  background: #197149;
+
+  color: white;
+
+  display: flex;
+
+  font-size: 2rem;
+
+  justify-content: center;
+}
+.slika label,
+label {
+  color: #23483a;
+
+  display: flex;
+
+  flex-direction: column;
+
+  font-weight: bold;
+
+  gap: 0.4rem;
+}
+.polja {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 1rem;
+}
+input {
+  border: 1px solid #b8c9c1;
+
+  border-radius: 8px;
+
+  font: inherit;
+
+  padding: 0.7rem;
+}
+input:disabled {
+  background: #edf1ef;
+}
+fieldset {
+  border: 1px solid #dce4df;
+
+  border-radius: 12px;
+
+  padding: 1.2rem;
+}
+legend,
+.rezervacije h2 {
+  color: #12372a;
+
+  font-weight: bold;
+}
+.sportovi {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 1rem;
+}
+.sportovi label {
+  align-items: center;
+
+  flex-direction: row;
+}
+.sportovi input {
+  accent-color: #197149;
+}
+.sadrzaj button {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 22px;
+
+  color: white;
+
+  cursor: pointer;
+
+  font: inherit;
+
+  padding: 0.85rem 1.5rem;
+
+  justify-self: start;
+}
+.sadrzaj button:disabled {
+  opacity: 0.65;
+}
+.greska {
+  color: #a23030;
+}
+.uspeh {
+  color: #197149;
+}
+.rezervacije {
+  background: #f7faf8;
+}
+.rezervacije h2 {
+  font-size: 2rem;
+}
+.tabela-okvir {
+  overflow-x: auto;
+}
+table {
+  border-collapse: collapse;
+
+  min-width: 1000px;
+
+  width: 100%;
+}
+th,
+td {
+  border-bottom: 1px solid #dce4df;
+
+  padding: 1rem;
+
+  text-align: left;
+
+  color: #456358;
+}
+th button {
+  background: none;
+
+  border: 0;
+
+  color: #23483a;
+
+  cursor: pointer;
+
+  font: inherit;
+
+  font-weight: bold;
+
+  padding: 0;
+}
+.otkazi {
+  background: #a23030;
+
+  border: 0;
+
+  border-radius: 18px;
+
+  color: white;
+
+  cursor: pointer;
+
+  padding: 0.55rem 0.9rem;
+}
+@media (max-width: 620px) {
+  .polja {
+    grid-template-columns: 1fr;
+  }
+}

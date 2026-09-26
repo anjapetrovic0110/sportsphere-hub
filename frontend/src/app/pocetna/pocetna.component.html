@@ -1,0 +1,47 @@
+<section class="hero">
+  <h1>Tvoja sledeća utakmica počinje ovde.</h1>
+  <p class="intro">Pronađi sportski objekat, rezerviši teren, pronađi saigrače, zakaži trening i nabavi opremu.</p>
+  <div class="actions">
+    <a class="primary" routerLink="/objekti">Pregled objekata</a>
+    <a class="secondary" routerLink="/registracija">Registruj se</a>
+  </div>
+</section>
+
+<section class="pregled">
+  <div class="broj">
+    <strong>{{ podaci.brojObjekata }}</strong>
+    <span>aktivna sportska objekta</span>
+  </div>
+  <div>
+    <h2>Top 3 objekta</h2>
+    @if (ucitavanje) {
+      <p>Učitavanje...</p>
+    }
+    @for (objekat of podaci.topObjekti; track objekat.id; let redni = $index) {
+      <a class="top-red" routerLink="/objekti" [queryParams]="{ id: objekat.id }">
+        <span>0{{ redni + 1 }}</span>
+        <b>{{ objekat.naziv }}</b>
+        <em>{{ objekat.grad }} · {{ objekat.brojLajkova }} sviđanja</em>
+      </a>
+    }
+    @if (poruka) {
+      <p class="greska">{{ poruka }}</p>
+    }
+  </div>
+</section>
+
+@if (podaci.promocije.length > 0) {
+  <section class="promocije">
+    <h2>Promocije</h2>
+    <div class="promo-mreza">
+      @for (promocija of podaci.promocije; track promocija.id) {
+        <article>
+          <span>{{ promocija.procenat != null ? promocija.procenat + '%' : promocija.iznos + ' RSD' }}</span>
+          <h3>{{ promocija.naziv }}</h3>
+          <p>{{ promocija.objekat }}</p>
+          <small>{{ promocija.datumOd }} — {{ promocija.datumDo }}</small>
+        </article>
+      }
+    </div>
+  </section>
+}

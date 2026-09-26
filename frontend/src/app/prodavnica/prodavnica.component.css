@@ -1,0 +1,135 @@
+.zaglavlje,
+.sadrzaj {
+  padding: 3rem clamp(1rem, 6vw, 6rem);
+}
+a,
+.oznaka,
+article span {
+  color: #197149;
+}
+.oznaka {
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+}
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+select {
+  border: 1px solid #b8c9c1;
+
+  border-radius: 8px;
+
+  padding: 0.6rem;
+}
+.raspored {
+  display: grid;
+
+  grid-template-columns: 1fr 300px;
+
+  gap: 1rem;
+
+  margin-top: 2rem;
+}
+.mreza {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 1rem;
+}
+article,
+aside {
+  background: white;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 12px;
+
+  padding: 1.2rem;
+}
+article img,
+.bez {
+  background: #eff7f1;
+
+  border-radius: 8px;
+
+  height: 170px;
+
+  object-fit: cover;
+
+  width: 100%;
+}
+.bez {
+  align-items: center;
+
+  display: flex;
+
+  justify-content: center;
+}
+button {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 18px;
+
+  color: white;
+
+  cursor: pointer;
+
+  padding: 0.6rem 0.9rem;
+}
+button:disabled {
+  opacity: 0.5;
+}
+aside {
+  height: max-content;
+
+  position: sticky;
+
+  top: 1rem;
+}
+.naruci {
+  display: block;
+
+  margin-top: 1rem;
+
+  width: 100%;
+}
+.stavka,
+.porudzbina {
+  align-items: center;
+
+  display: flex;
+
+  gap: 1rem;
+
+  justify-content: space-between;
+
+  margin: 0.7rem 0;
+}
+.porudzbina small {
+  display: block;
+
+  margin-top: 0.35rem;
+}
+.porudzbina p {
+  margin-top: 0;
+}
+.poruka {
+  color: #197149;
+}
+@media (max-width: 800px) {
+  .raspored {
+    grid-template-columns: 1fr;
+  }
+  .mreza {
+    grid-template-columns: 1fr;
+  }
+  aside {
+    position: static;
+  }
+}

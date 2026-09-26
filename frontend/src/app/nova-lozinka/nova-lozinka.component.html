@@ -1,0 +1,27 @@
+<section>
+  <a routerLink="/prijava">← Nazad na prijavu</a>
+  <p class="oznaka">NOVA LOZINKA</p>
+  <h1>Postavite novu lozinku</h1>
+  @if (!token) {
+    <p>Link nije ispravan.</p>
+  } @else if (!uspeh) {
+    <form #f="ngForm" (ngSubmit)="sacuvaj(f)">
+      <label>
+        Nova lozinka
+        <input type="password" name="lozinka" autocomplete="new-password" [(ngModel)]="lozinka" required pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])[A-Za-z].{7,11}$" />
+      </label>
+      <label>
+        Ponovite lozinku
+        <input type="password" name="potvrda" autocomplete="new-password" [(ngModel)]="potvrda" required />
+      </label>
+      <small>8–12 karaktera, počinje slovom i sadrži veliko slovo, broj i specijalni karakter.</small>
+      <button>Promeni lozinku</button>
+    </form>
+  }
+  @if (poruka) {
+    <p>{{ poruka }}</p>
+  }
+  @if (uspeh) {
+    <a class="link" routerLink="/prijava">Prijavi se</a>
+  }
+</section>

@@ -1,0 +1,109 @@
+<section class="zaglavlje">
+  <a routerLink="/sportista">← Korisnički početni ekran</a>
+  <h1>Okupi ekipu za sledeći termin.</h1>
+</section>
+
+<section class="sadrzaj">
+  <form #forma="ngForm" (ngSubmit)="objavi(forma)">
+    <h2>Objavi novi oglas</h2>
+    <div class="polja">
+      <label>
+        Sport
+        <select name="idSporta" [(ngModel)]="oglas.idSporta" required>
+          <option [ngValue]="0" disabled>Izaberite sport</option>
+          @for (sport of sportovi; track sport.id) {
+            <option [ngValue]="sport.id">{{ sport.naziv }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Grad
+        <select name="grad" [(ngModel)]="oglas.grad" required>
+          <option value="" disabled>Izaberite grad</option>
+          @for (grad of gradovi; track grad) {
+            <option [value]="grad">{{ grad }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Datum
+        <input type="date" name="datumIgre" [(ngModel)]="oglas.datumIgre" [min]="danas" required />
+      </label>
+      <label>
+        Vreme
+        <select name="vremeIgre" [(ngModel)]="oglas.vremeIgre" required>
+          <option value="" disabled>Izaberite vreme</option>
+          @for (vreme of vremena; track vreme) {
+            <option [value]="vreme">{{ vreme }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Nedostaje igrača
+        <input type="number" name="nedostajeIgraca" [(ngModel)]="oglas.nedostajeIgraca" min="1" max="50" required />
+      </label>
+    </div>
+    <button type="submit" [disabled]="cuvanje">
+      {{ cuvanje ? 'Objavljivanje...' : 'Objavi oglas' }}
+    </button>
+  </form>
+
+  @if (poruka) {
+    <p class="poruka" [class.uspeh]="uspesno">{{ poruka }}</p>
+  }
+
+  <h2>Aktivni oglasi</h2>
+  @if (ucitavanje) {
+    <p>Učitavanje oglasa...</p>
+  } @else if (!oglasi.length) {
+    <p class="prazno">Trenutno nema aktivnih oglasa.</p>
+  } @else {
+    <div class="oglasi">
+      @for (stavka of oglasi; track stavka.id) {
+        <article [class.moj]="stavka.moj">
+          <div class="vrh">
+            <div>
+              <span>{{ stavka.sport }}</span>
+              <h3>{{ stavka.grad }}</h3>
+            </div>
+            @if (stavka.moj) {
+              <strong>Moj oglas</strong>
+            }
+          </div>
+          <p>
+            {{ stavka.datum | date: 'dd.MM.yyyy.' }} u {{ stavka.vreme.slice(0, 5) }} · autor:
+            {{ stavka.autor }}
+          </p>
+          <p>
+            Popunjeno:
+            <b>{{ stavka.prihvaceno }} / {{ stavka.nedostaje }}</b>
+          </p>
+          @if (!stavka.moj) {
+            <button (click)="pridruziSe(stavka)" [disabled]="stavka.poslatZahtev">
+              {{ stavka.poslatZahtev ? 'Zahtev je poslat' : 'Pošalji zahtev' }}
+            </button>
+          } @else {
+            <button class="sekundarno" (click)="zatvori(stavka)">Zatvori oglas</button>
+            <div class="zahtevi">
+              <h4>Zahtevi za pridruživanje</h4>
+              @if (!stavka.zahtevi.length) {
+                <p>Još nema zahteva.</p>
+              }
+              @for (zahtev of stavka.zahtevi; track zahtev.id) {
+                <div class="zahtev">
+                  <span>{{ zahtev.sportista }} — {{ nazivStatusa(zahtev.status) }}</span>
+                  @if (zahtev.status === 'PENDING') {
+                    <span>
+                      <button (click)="obradi(stavka, zahtev, 'prihvati')">Prihvati</button>
+                      <button class="odbij" (click)="obradi(stavka, zahtev, 'odbij')">Odbij</button>
+                    </span>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </article>
+      }
+    </div>
+  }
+</section>

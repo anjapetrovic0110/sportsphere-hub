@@ -1,0 +1,56 @@
+<section>
+  <h1>Zdravo, {{ korisnik?.ime }}.</h1>
+  <div class="kartice">
+    @if (korisnik?.uloga == 'ATHLETE') {
+      <article>
+        <h2>Profil i rezervacije</h2>
+        <a routerLink="/sportista/profil">Otvori profil</a>
+      </article>
+      <article>
+        <h2>Pronađi objekat</h2>
+        <a routerLink="/objekti">Pretraži</a>
+      </article>
+      <article>
+        <h2>Saigrači i treninzi</h2>
+        <a routerLink="/sportista/oglasi">Saigrači</a>
+        ·
+        <a routerLink="/sportista/treninzi">Treneri</a>
+      </article>
+      <article>
+        <h2>Prodavnica opreme</h2>
+        <a routerLink="/sportista/prodavnica">Otvori prodavnicu</a>
+      </article>
+      <article>
+        <h2>Statistika</h2>
+        <a routerLink="/sportista/statistika">Prikaži dijagrame</a>
+      </article>
+    } @else {
+      <article>
+        <h2>Moji objekti</h2>
+        <a routerLink="/zaposleni/profil">Profil</a>
+        ·
+        <a routerLink="/zaposleni/objekti/novi">Dodaj</a>
+        ·
+        <a routerLink="/zaposleni/objekti/uvoz">JSON uvoz</a>
+      </article>
+      <article>
+        <h2>Rezervacije i treninzi</h2>
+        <a routerLink="/zaposleni/rezervacije">Evidencija dolazaka</a>
+        ·
+        <a routerLink="/zaposleni/kalendar">Kalendar</a>
+      </article>
+      <article>
+        <h2>Promocije i oprema</h2>
+        <a routerLink="/zaposleni/promocije">Promocije</a>
+        ·
+        <a routerLink="/zaposleni/oprema">Oprema</a>
+        ·
+        <a routerLink="/zaposleni/porudzbine">Porudžbine</a>
+      </article>
+      <article>
+        <h2>Mesečni izveštaji</h2>
+        <a routerLink="/zaposleni/izvestaji">Generiši izveštaje</a>
+      </article>
+    }
+  </div>
+</section>

@@ -1,0 +1,26 @@
+<header class="site-header">
+  <a class="brand" routerLink="/">SportSphere Hub</a>
+  <nav>
+    <a routerLink="/objekti">Objekti</a>
+    @if (korisnik) {
+      <a [routerLink]="pocetnaKorisnika()">{{ korisnik.ime }} {{ korisnik.prezime }}</a>
+    } @else {
+      <a routerLink="/prijava">Prijava</a>
+      <a class="button-link" routerLink="/registracija">Registracija</a>
+    }
+  </nav>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+@if (korisnik) {
+  <div class="logout-area">
+    <button class="logout" (click)="odjava()">Odjava</button>
+  </div>
+}
+
+<footer>
+  <span>SportSphere Hub</span>
+</footer>

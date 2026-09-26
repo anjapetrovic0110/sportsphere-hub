@@ -1,0 +1,16 @@
+<section>
+  <a routerLink="/prijava">← Nazad na prijavu</a>
+  <p class="oznaka">OPORAVAK NALOGA</p>
+  <h1>Zaboravljena lozinka</h1>
+  <p>Unesite korisničko ime ili imejl adresu. Link ćemo poslati na imejl adresu naloga. Privremeni link važi 30 minuta.</p>
+  <form #f="ngForm" (ngSubmit)="posalji(f)">
+    <label>
+      Korisničko ime ili imejl
+      <input name="identifikator" [(ngModel)]="identifikator" required />
+    </label>
+    <button>Pošalji link</button>
+  </form>
+  @if (poruka) {
+    <p>{{ poruka }}</p>
+  }
+</section>

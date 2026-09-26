@@ -1,0 +1,29 @@
+{
+  "name": "Rekreativni centar Morava",
+  "city": "Niš",
+  "address": "Bulevar Nemanjića 88",
+  "description": "Centar za tenis i odbojku sa otvorenim terenima i večernjim osvetljenjem.",
+  "latitude": 43.3171,
+  "longitude": 21.8954,
+  "openingTime": "08:00",
+  "closingTime": "22:00",
+  "allowedNoShows": 2,
+  "resources": [
+    {
+      "name": "Teniski teren Morava",
+      "type": "OUTDOOR_FIELD",
+      "capacity": 4,
+      "equipmentDescription": "Tvrda podloga, mreža, klupe i reflektori",
+      "hourlyPrice": 3000,
+      "sportIds": [3]
+    },
+    {
+      "name": "Odbojkaški teren Morava",
+      "type": "OUTDOOR_FIELD",
+      "capacity": 12,
+      "equipmentDescription": "Peščana podloga, mreža, lopte i noćno osvetljenje",
+      "hourlyPrice": 3400,
+      "sportIds": [4]
+    }
+  ]
+}

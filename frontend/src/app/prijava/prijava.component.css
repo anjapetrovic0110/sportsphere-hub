@@ -1,0 +1,77 @@
+section {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 5rem;
+
+  padding: clamp(4rem, 10vw, 9rem);
+}
+
+.oznaka {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.15em;
+}
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 5vw, 5rem);
+}
+
+form {
+  background: white;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 16px;
+
+  padding: 2rem;
+}
+
+label {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.5rem;
+
+  margin-bottom: 1rem;
+}
+
+input {
+  border: 1px solid #aabdb5;
+
+  border-radius: 8px;
+
+  padding: 0.8rem;
+}
+
+button {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 20px;
+
+  color: white;
+
+  padding: 0.85rem 1.4rem;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+.greska {
+  color: #a23030;
+}
+
+@media (max-width: 760px) {
+  section {
+    grid-template-columns: 1fr;
+
+    gap: 2rem;
+  }
+}

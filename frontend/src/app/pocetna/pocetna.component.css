@@ -1,0 +1,177 @@
+.hero {
+  background: #071a33;
+
+  padding: clamp(4rem, 10vw, 9rem) clamp(1.5rem, 10vw, 10rem);
+}
+
+.eyebrow {
+  color: #69b9ff;
+
+  font-weight: bold;
+
+  letter-spacing: 0.16em;
+}
+
+h1 {
+  color: white;
+
+  font-size: clamp(3rem, 8vw, 7rem);
+
+  line-height: 0.95;
+
+  margin: 1rem 0;
+
+  max-width: 900px;
+}
+
+.intro {
+  color: #dbeeff;
+
+  font-size: 1.2rem;
+
+  line-height: 1.7;
+
+  max-width: 670px;
+}
+
+.actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 1rem;
+
+  margin-top: 2rem;
+}
+
+.actions a {
+  border: 2px solid #69b9ff;
+
+  border-radius: 20px;
+
+  padding: 0.85rem 1.3rem;
+
+  text-decoration: none;
+}
+
+.primary {
+  background: #69b9ff;
+
+  color: #071a33;
+}
+
+.secondary {
+  color: white;
+}
+
+.pregled {
+  display: grid;
+
+  grid-template-columns: 0.7fr 1.3fr;
+
+  gap: 5rem;
+
+  padding: clamp(3rem, 8vw, 8rem);
+
+  background: white;
+}
+
+.broj {
+  display: flex;
+
+  flex-direction: column;
+
+  color: #36556f;
+}
+.broj strong {
+  color: #071a33;
+
+  font-size: clamp(5rem, 12vw, 10rem);
+
+  line-height: 1;
+}
+.broj span {
+  font-size: 1.2rem;
+}
+
+.pregled h2,
+.promocije h2 {
+  color: #071a33;
+
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+.top-red {
+  display: grid;
+
+  grid-template-columns: 50px 1fr auto;
+
+  gap: 1rem;
+
+  border-top: 1px solid #c9e4f8;
+
+  color: #071a33;
+
+  padding: 1.2rem 0;
+
+  text-decoration: none;
+}
+.top-red span {
+  color: #2589d8;
+}
+.top-red em {
+  color: #36556f;
+
+  font-style: normal;
+}
+.greska {
+  color: #a23030;
+}
+
+.promocije {
+  padding: clamp(3rem, 8vw, 8rem);
+
+  background: #dbeeff;
+}
+.promo-mreza {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1rem;
+}
+.promo-mreza article {
+  background: white;
+
+  border-radius: 14px;
+
+  padding: clamp(2rem, 5vw, 5rem);
+}
+.promo-mreza article > span {
+  color: #1679c4;
+
+  font-size: 1.5rem;
+
+  font-weight: bold;
+}
+.promo-mreza h3 {
+  color: #071a33;
+
+  font-size: 1.5rem;
+}
+.promo-mreza small,
+.promo-mreza p {
+  color: #36556f;
+}
+
+@media (max-width: 760px) {
+  .pregled,
+  .promo-mreza {
+    grid-template-columns: 1fr;
+  }
+  .top-red {
+    grid-template-columns: 40px 1fr;
+  }
+  .top-red em {
+    grid-column: 2;
+  }
+}

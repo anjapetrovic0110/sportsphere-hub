@@ -1,0 +1,14 @@
+<section>
+  <a routerLink="/zaposleni">← Korisnički početni ekran</a>
+  <p>JSON UVOZ</p>
+  <h1>Uvoz sportskog objekta</h1>
+  <label>
+    Izaberite JSON fajl
+    <input type="file" accept="application/json,.json" [disabled]="slanje" (change)="uvezi($event)" />
+  </label>
+  <small>Fajl mora sadržati iste podatke kao forma za dodavanje objekta i može imati najviše 1 MB.</small>
+
+  @if (poruka) {
+    <strong [class.uspeh]="uspesno" [class.greska]="!uspesno">{{ poruka }}</strong>
+  }
+</section>

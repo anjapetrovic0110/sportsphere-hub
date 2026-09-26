@@ -1,0 +1,157 @@
+.zaglavlje {
+  background: #eff7f1;
+
+  padding: 3rem clamp(1.5rem, 8vw, 8rem);
+}
+.zaglavlje a {
+  color: #197149;
+}
+.zaglavlje p {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+}
+.zaglavlje h1 {
+  color: #12372a;
+
+  font-size: clamp(2.3rem, 6vw, 4.5rem);
+}
+.sadrzaj {
+  padding: 3rem clamp(1rem, 6vw, 6rem);
+}
+form,
+article {
+  background: white;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 12px;
+
+  padding: 1.5rem;
+}
+.naslov {
+  align-items: center;
+
+  display: flex;
+
+  justify-content: space-between;
+}
+h2,
+h3 {
+  color: #12372a;
+}
+.polja {
+  display: grid;
+
+  gap: 1rem;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  margin-bottom: 1rem;
+}
+label {
+  color: #23483a;
+
+  display: flex;
+
+  flex-direction: column;
+
+  font-weight: bold;
+
+  gap: 0.4rem;
+}
+input,
+select {
+  border: 1px solid #b8c9c1;
+
+  border-radius: 8px;
+
+  font: inherit;
+
+  min-height: 44px;
+
+  padding: 0.6rem;
+}
+.cek {
+  align-items: center;
+
+  flex-direction: row;
+}
+.cek input {
+  min-height: auto;
+}
+button {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 20px;
+
+  color: white;
+
+  cursor: pointer;
+
+  padding: 0.65rem 1rem;
+}
+.sekundarno {
+  background: #fff;
+
+  border: 1px solid #197149;
+
+  color: #197149;
+}
+.poruka {
+  color: #a23030;
+}
+.poruka.uspeh {
+  color: #197149;
+}
+.mreza {
+  display: grid;
+
+  gap: 1rem;
+
+  grid-template-columns: repeat(3, 1fr);
+}
+article {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.7rem;
+}
+article > span {
+  color: #197149;
+
+  font-weight: bold;
+}
+article strong {
+  color: #12372a;
+
+  font-size: 1.7rem;
+}
+article small {
+  color: #5a6f67;
+}
+.neaktivna {
+  opacity: 0.65;
+}
+.prazno {
+  color: #5a6f67;
+}
+@media (max-width: 1000px) {
+  .polja {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mreza {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 650px) {
+  .polja,
+  .mreza {
+    grid-template-columns: 1fr;
+  }
+}

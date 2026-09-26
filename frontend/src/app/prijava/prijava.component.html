@@ -1,0 +1,29 @@
+<section>
+  <div>
+    <h1>Prijavi se</h1>
+    <p>Unesite korisničko ime i lozinku.</p>
+  </div>
+  <form #forma="ngForm" (ngSubmit)="prijava()">
+    <label>
+      Korisničko ime
+      <input name="korisnickoIme" [(ngModel)]="podaci.korisnickoIme" required />
+    </label>
+    <label>
+      Lozinka
+      <input
+        type="password"
+        name="lozinka"
+        autocomplete="current-password"
+        [(ngModel)]="podaci.lozinka"
+        required
+      />
+    </label>
+    <button [disabled]="forma.invalid || slanje">
+      {{ slanje ? 'Prijavljivanje...' : 'Prijavi se' }}
+    </button>
+    <a routerLink="/zaboravljena-lozinka">Zaboravljena lozinka?</a>
+    @if (poruka) {
+      <p class="greska">{{ poruka }}</p>
+    }
+  </form>
+</section>

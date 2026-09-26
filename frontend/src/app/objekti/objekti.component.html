@@ -1,0 +1,92 @@
+<section class="zaglavlje">
+  <p>SPORTSKI OBJEKTI</p>
+  <h1>Pronađi mesto za sledeći trening</h1>
+</section>
+
+<section class="sadrzaj">
+  <form (ngSubmit)="pretrazi()" class="filteri">
+    <label>
+      Naziv
+      <input type="search" name="naziv" [(ngModel)]="naziv" placeholder="Unesite naziv objekta" />
+    </label>
+    <label>
+      Gradovi
+      <select class="gradovi-select" name="gradovi" [(ngModel)]="izabraniGradovi" multiple size="3">
+        @for (grad of gradovi; track grad) {
+          <option [value]="grad">{{ grad }}</option>
+        }
+      </select>
+      <small>Bez izbora se pretražuju svi gradovi. Za više gradova označite više stavki.</small>
+    </label>
+    <label>
+      Sport
+      <select name="sport" [(ngModel)]="idSporta">
+        <option [ngValue]="null">Svi sportovi</option>
+        @for (sport of sportovi; track sport.id) {
+          <option [ngValue]="sport.id">{{ sport.naziv }}</option>
+        }
+      </select>
+    </label>
+    <label>
+      Tip resursa
+      <select name="tip" [(ngModel)]="tip">
+        <option value="">Svi tipovi</option>
+        <option value="OUTDOOR_FIELD">Otvoreni teren</option>
+        <option value="INDOOR_FIELD">Zatvoreni teren</option>
+        <option value="SPORTS_HALL">Sportska hala</option>
+      </select>
+    </label>
+    @if (korisnik?.uloga === 'ATHLETE') {
+      <label class="cek">
+        <input type="checkbox" name="slobodnoDanas" [(ngModel)]="slobodnoDanas" />
+        Samo slobodni termini danas
+      </label>
+    }
+    <button type="submit" [disabled]="ucitavanje">
+      {{ ucitavanje ? 'Pretraživanje...' : 'Pretraži' }}
+    </button>
+  </form>
+
+  @if (poruka) {
+    <p class="greska">{{ poruka }}</p>
+  }
+  @if (!ucitavanje && !poruka && objekti.length === 0) {
+    <p class="prazno">Nema objekata za izabrane kriterijume.</p>
+  }
+  @if (objekti.length > 0) {
+    <div class="tabela-okvir">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <button (click)="sortiraj('naziv')">Naziv{{ oznaka('naziv') }}</button>
+            </th>
+            <th>
+              <button (click)="sortiraj('grad')">Grad{{ oznaka('grad') }}</button>
+            </th>
+            <th>Adresa</th>
+            <th>
+              <button (click)="sortiraj('sportovi')">Sportovi{{ oznaka('sportovi') }}</button>
+            </th>
+            <th>Cena od</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (objekat of objekti; track objekat.id) {
+            <tr>
+              <td>
+                <strong>{{ objekat.naziv }}</strong>
+              </td>
+              <td>{{ objekat.grad }}</td>
+              <td>{{ objekat.adresa }}</td>
+              <td>{{ objekat.sportovi }}</td>
+              <td>{{ objekat.najmanjaCena | number: '1.0-2' }} RSD</td>
+              <td><a [routerLink]="['/objekti', objekat.id]">Detalji</a></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

@@ -1,0 +1,61 @@
+section {
+  margin: auto;
+
+  max-width: 620px;
+
+  padding: 5rem 1.5rem;
+}
+a {
+  color: #197149;
+}
+.oznaka {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+
+  margin-top: 2rem;
+}
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+}
+form {
+  display: grid;
+
+  gap: 1rem;
+}
+label {
+  color: #23483a;
+
+  display: grid;
+
+  font-weight: bold;
+
+  gap: 0.4rem;
+}
+input {
+  border: 1px solid #b8c9c1;
+
+  border-radius: 8px;
+
+  padding: 0.8rem;
+}
+button,
+.link {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 22px;
+
+  color: white;
+
+  justify-self: start;
+
+  padding: 0.8rem 1.2rem;
+
+  text-decoration: none;
+}

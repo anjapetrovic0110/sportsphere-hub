@@ -1,0 +1,161 @@
+section {
+  padding: 3rem clamp(1rem, 6vw, 6rem);
+}
+a {
+  color: #197149;
+}
+.oznaka {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+
+  margin-top: 2rem;
+}
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+.mreza {
+  display: grid;
+
+  gap: 1rem;
+
+  grid-template-columns: 1fr 1fr;
+}
+.mreza article {
+  background: white;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 14px;
+
+  padding: 1.5rem;
+
+  min-width: 0;
+}
+.mreza h2 {
+  color: #12372a;
+}
+.legenda {
+  color: #456358;
+}
+.legenda span {
+  display: inline-block;
+
+  height: 10px;
+
+  margin-left: 1rem;
+
+  width: 10px;
+}
+.zeleno {
+  background: #197149;
+}
+.plavo {
+  background: #477da8;
+}
+.red {
+  display: grid;
+
+  gap: 0.4rem;
+
+  margin: 1rem 0;
+}
+.barovi {
+  display: grid;
+
+  gap: 0.25rem;
+}
+.barovi i {
+  color: white;
+
+  font-style: normal;
+
+  min-width: 2rem;
+
+  padding: 0.3rem;
+
+  text-align: right;
+}
+.odigrano {
+  background: #197149;
+}
+.rezervisano {
+  background: #477da8;
+}
+svg {
+  background: #f7faf8;
+
+  border-radius: 10px;
+
+  width: 100%;
+}
+polyline {
+  fill: none;
+
+  stroke: #197149;
+
+  stroke-width: 5;
+}
+circle {
+  fill: #197149;
+
+  stroke: white;
+
+  stroke-width: 3;
+}
+text {
+  fill: #456358;
+
+  font-size: 13px;
+
+  text-anchor: middle;
+}
+.vrednost {
+  fill: #12372a;
+
+  font-weight: bold;
+}
+.siroko {
+  grid-column: 1/-1;
+}
+.potrosnja {
+  align-items: center;
+
+  display: grid;
+
+  gap: 1rem;
+
+  grid-template-columns: 180px 1fr 130px;
+
+  margin: 1rem 0;
+}
+.potrosnja > div {
+  background: #e7ece9;
+
+  height: 22px;
+}
+.potrosnja i {
+  background: #d08b2f;
+
+  display: block;
+
+  height: 100%;
+}
+.greska {
+  color: #a23030;
+}
+@media (max-width: 750px) {
+  .mreza {
+    grid-template-columns: 1fr;
+  }
+  .potrosnja {
+    grid-template-columns: 1fr;
+  }
+  .siroko {
+    grid-column: auto;
+  }
+}

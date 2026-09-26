@@ -1,0 +1,16 @@
+<section>
+  <a routerLink="/zaposleni">← Korisnički početni ekran</a>
+  <p>MESEČNI PDF IZVEŠTAJI</p>
+  <h1>Popunjenost i promet opreme</h1>
+  <label>
+    Izabrani mesec
+    <input type="month" [(ngModel)]="mesec" />
+  </label>
+  <div>
+    <button (click)="preuzmi('popunjenost')">Preuzmi popunjenost terena</button>
+    <button (click)="preuzmi('promet')">Preuzmi promet opreme</button>
+  </div>
+  @if (poruka) {
+    <strong>{{ poruka }}</strong>
+  }
+</section>

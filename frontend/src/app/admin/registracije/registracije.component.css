@@ -1,0 +1,236 @@
+section {
+  background: #071a33;
+
+  color: white;
+
+  min-height: 100%;
+
+  padding: clamp(3rem, 7vw, 7rem);
+}
+header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: start;
+}
+
+.oznaka {
+  color: #69b9ff;
+
+  font-weight: bold;
+
+  letter-spacing: 0.15em;
+}
+h1,
+h2 {
+  color: white;
+}
+h1 {
+  font-size: clamp(2.3rem, 5vw, 4.5rem);
+}
+
+.tabela {
+  border: 1px solid #315f87;
+
+  border-radius: 12px;
+
+  overflow-x: auto;
+}
+table {
+  border-collapse: collapse;
+
+  width: 100%;
+
+  background: #102a46;
+
+  color: #edf8ff;
+}
+thead {
+  background: #163a5c;
+}
+tbody tr:nth-child(even) {
+  background: #133452;
+}
+tbody tr:hover {
+  background: #1a4468;
+}
+th {
+  color: #b9ddf7;
+}
+th,
+td {
+  border-bottom: 1px solid #315f87;
+
+  padding: 1rem;
+
+  text-align: left;
+}
+
+button,
+.odbij {
+  background: #69b9ff;
+
+  border: 0;
+
+  border-radius: 18px;
+
+  color: #071a33;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  margin: 0.2rem;
+
+  padding: 0.65rem 1rem;
+}
+.odjava {
+  background: #dbeeff;
+}
+.prazno {
+  background: #dbeeff;
+
+  color: #071a33;
+
+  border-radius: 12px;
+
+  padding: 2rem;
+}
+.poruka {
+  color: #69b9ff;
+}
+
+.naslov-red {
+  align-items: end;
+
+  border-top: 1px solid #315f87;
+
+  display: flex;
+
+  gap: 2rem;
+
+  justify-content: space-between;
+
+  margin-top: 6rem;
+
+  padding-top: 2.5rem;
+}
+
+.naslov-sekcije {
+  margin-top: 3rem;
+}
+
+.naslov-sekcije h2 {
+  margin-top: 0;
+}
+
+.naslov-red h2 {
+  margin-top: 0.3rem;
+}
+.naslov-red form {
+  align-items: end;
+
+  display: flex;
+
+  gap: 0.6rem;
+}
+
+.treneri-rezultat {
+  margin-top: 2rem;
+}
+
+label {
+  color: white;
+
+  display: flex;
+
+  flex-direction: column;
+
+  font-weight: bold;
+
+  gap: 0.35rem;
+}
+
+input {
+  background: #edf8ff;
+
+  border: 1px solid #69b9ff;
+
+  border-radius: 8px;
+
+  color: #071a33;
+
+  font: inherit;
+
+  min-height: 42px;
+
+  padding: 0.55rem;
+}
+
+select {
+  background: #edf8ff;
+
+  border: 1px solid #69b9ff;
+
+  border-radius: 8px;
+
+  color: #071a33;
+
+  font: inherit;
+
+  min-height: 42px;
+
+  padding: 0.55rem;
+}
+.korisnik-forma {
+  align-items: end;
+
+  background: #102a46;
+
+  border: 1px solid #315f87;
+
+  border-radius: 12px;
+
+  display: grid;
+
+  gap: 1rem;
+
+  grid-template-columns: repeat(5, 1fr) auto auto;
+
+  margin-bottom: 1rem;
+
+  padding: 1rem;
+}
+
+button:disabled {
+  opacity: 0.6;
+}
+.status,
+.status.neaktivan {
+  color: #b9ddf7;
+
+  font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .korisnik-forma {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 720px) {
+  header,
+  .naslov-red {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+  .naslov-red form {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+  .korisnik-forma {
+    grid-template-columns: 1fr;
+  }
+}

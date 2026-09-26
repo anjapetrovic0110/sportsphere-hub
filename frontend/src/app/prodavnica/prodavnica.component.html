@@ -1,0 +1,67 @@
+<section class="zaglavlje">
+  <a routerLink="/sportista">← Korisnički početni ekran</a>
+  <h1>Sportska oprema</h1>
+</section>
+
+<section class="sadrzaj">
+  <label>
+    Sport
+    <select [(ngModel)]="idSporta" (ngModelChange)="ucitaj()">
+      <option [ngValue]="0">Svi</option>
+      @for (s of sportovi; track s.id) {
+        <option [ngValue]="s.id">{{ s.naziv }}</option>
+      }
+    </select>
+  </label>
+
+  @if (poruka) {
+    <p class="poruka">{{ poruka }}</p>
+  }
+  <div class="raspored">
+    <div class="mreza">
+      @for (a of artikli; track a.id) {
+        <article>
+          @if (slika(a)) {
+            <img [src]="slika(a)" [alt]="a.naziv" (error)="greskaSlike(a.id)" />
+          } @else {
+            <div class="bez">Nema slike</div>
+          }
+          <span>{{ a.sport }}</span>
+          <h2>{{ a.naziv }}</h2>
+          <strong>{{ a.cena | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}</strong>
+          <p>Na stanju: {{ a.zaliha }}</p>
+          <button (click)="dodaj(a)" [disabled]="a.zaliha === 0 || kolicina(a.id) >= a.zaliha">Dodaj u korpu</button>
+        </article>
+      }
+    </div>
+    <aside>
+      <h2>Korpa</h2>
+      @for (a of artikli; track a.id) {
+        @if (kolicina(a.id)) {
+          <div class="stavka">
+            <span>{{ a.naziv }} × {{ kolicina(a.id) }}</span>
+            <button (click)="ukloni(a.id)">−</button>
+          </div>
+        }
+      }
+      <strong>Ukupno: {{ ukupno() | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}</strong>
+      <button class="naruci" (click)="naruci()">Naruči</button>
+    </aside>
+  </div>
+  <h2>Moje porudžbine</h2>
+  @for (p of porudzbine; track p.id) {
+    <article class="porudzbina">
+      <div>
+        <p>
+          <strong>{{ p.kreirano | date: 'dd.MM.yyyy. HH:mm' }} · {{ status(p.status) }}</strong>
+        </p>
+        @for (s of p.stavke; track s.naziv) {
+          <small>{{ s.naziv }} × {{ s.kolicina }}</small>
+        }
+      </div>
+      @if (p.status === 'ORDERED') {
+        <button (click)="otkazi(p.id)">Otkaži</button>
+      }
+    </article>
+  }
+</section>

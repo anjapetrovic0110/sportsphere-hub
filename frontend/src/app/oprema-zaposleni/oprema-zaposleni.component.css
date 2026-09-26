@@ -1,0 +1,151 @@
+section {
+  padding: 3rem clamp(1rem, 6vw, 6rem);
+}
+a,
+.oznaka {
+  color: #197149;
+}
+.oznaka {
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+}
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+form,
+article {
+  background: white;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 12px;
+
+  padding: 1.5rem;
+}
+.polja {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1rem;
+}
+label {
+  color: #23483a;
+
+  display: flex;
+
+  flex-direction: column;
+
+  font-weight: bold;
+
+  gap: 0.4rem;
+}
+input,
+select {
+  border: 1px solid #b8c9c1;
+
+  border-radius: 8px;
+
+  font: inherit;
+
+  min-height: 44px;
+
+  padding: 0.6rem;
+}
+.cek {
+  align-items: center;
+
+  flex-direction: row;
+}
+.cek input {
+  min-height: auto;
+}
+button {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 20px;
+
+  color: white;
+
+  cursor: pointer;
+
+  margin: 0.7rem 0.3rem 0 0;
+
+  padding: 0.65rem 1rem;
+}
+.drugo {
+  background: #456358;
+}
+.pregled {
+  height: 100px;
+
+  margin-top: 1rem;
+
+  object-fit: cover;
+
+  width: 140px;
+}
+.poruka {
+  color: #a23030;
+}
+.poruka.uspeh {
+  color: #197149;
+}
+.mreza {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1rem;
+
+  margin-top: 2rem;
+}
+article img,
+.bez-slike {
+  background: #eff7f1;
+
+  border-radius: 8px;
+
+  height: 180px;
+
+  object-fit: cover;
+
+  width: 100%;
+}
+.bez-slike {
+  align-items: center;
+
+  color: #71827b;
+
+  display: flex;
+
+  justify-content: center;
+}
+article span {
+  color: #197149;
+}
+article h2 {
+  color: #12372a;
+}
+article strong {
+  color: #12372a;
+
+  font-size: 1.4rem;
+}
+@media (max-width: 850px) {
+  .polja,
+  .mreza {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .polja,
+  .mreza {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,175 @@
+.zaglavlje {
+  background: #eff7f1;
+
+  padding: 3rem clamp(1.5rem, 8vw, 8rem);
+}
+.zaglavlje a {
+  color: #197149;
+}
+.zaglavlje > p {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+
+  margin-top: 2rem;
+}
+.zaglavlje h1 {
+  color: #12372a;
+
+  font-size: clamp(2.4rem, 6vw, 5rem);
+
+  margin: 0.5rem 0;
+}
+.sadrzaj,
+.objekti {
+  padding: 3rem clamp(1.5rem, 8vw, 8rem);
+}
+form {
+  display: grid;
+
+  gap: 2rem;
+
+  max-width: 900px;
+}
+.slika {
+  align-items: center;
+
+  display: flex;
+
+  gap: 1.5rem;
+}
+.slika img,
+.avatar {
+  border-radius: 50%;
+
+  height: 110px;
+
+  object-fit: cover;
+
+  width: 110px;
+}
+.avatar {
+  align-items: center;
+
+  background: #197149;
+
+  color: white;
+
+  display: flex;
+
+  font-size: 2rem;
+
+  justify-content: center;
+}
+label {
+  color: #23483a;
+
+  display: flex;
+
+  flex-direction: column;
+
+  font-weight: bold;
+
+  gap: 0.4rem;
+}
+.polja {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 1rem;
+}
+input {
+  border: 1px solid #b8c9c1;
+
+  border-radius: 8px;
+
+  font: inherit;
+
+  padding: 0.7rem;
+}
+input:disabled {
+  background: #edf1ef;
+}
+.organizacija {
+  background: #eff7f1;
+
+  border-radius: 12px;
+
+  padding: 1.5rem;
+}
+.organizacija h2,
+.objekti h2 {
+  color: #12372a;
+}
+.organizacija span {
+  color: #456358;
+
+  margin-right: 2rem;
+}
+.sadrzaj button {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 22px;
+
+  color: white;
+
+  cursor: pointer;
+
+  justify-self: start;
+
+  padding: 0.8rem 1.3rem;
+}
+.objekti {
+  background: #f7faf8;
+}
+.mreza {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 1rem;
+}
+.mreza article {
+  background: white;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 14px;
+
+  padding: 1.5rem;
+}
+.mreza span {
+  color: #197149;
+
+  font-weight: bold;
+}
+.mreza h3 {
+  color: #12372a;
+
+  font-size: 1.5rem;
+}
+.mreza p {
+  color: #5a6f67;
+
+  line-height: 1.5;
+}
+.mreza strong {
+  color: #23483a;
+}
+.greska {
+  color: #a23030;
+}
+.uspeh {
+  color: #197149;
+}
+@media (max-width: 700px) {
+  .polja,
+  .mreza {
+    grid-template-columns: 1fr;
+  }
+}

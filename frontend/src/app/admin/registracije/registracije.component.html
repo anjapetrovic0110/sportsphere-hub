@@ -1,0 +1,205 @@
+<section class="admin-strana">
+  <header>
+    <div><h1>Administratorska kontrolna tabla</h1></div>
+  </header>
+  @if (poruka) {
+    <p class="poruka">{{ poruka }}</p>
+  }
+  <div class="naslov-sekcije"><h2>Registracije na čekanju</h2></div>
+  @if (zahtevi.length == 0) {
+    <div class="prazno">Nema zahteva na čekanju.</div>
+  } @else {
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Korisnik</th>
+            <th>Kontakt</th>
+            <th>Uloga</th>
+            <th>Akcije</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (zahtev of zahtevi; track zahtev.id) {
+            <tr>
+              <td>
+                <strong>{{ zahtev.ime }} {{ zahtev.prezime }}</strong>
+                <br />
+                {{ zahtev.korisnickoIme }}
+              </td>
+              <td>
+                {{ zahtev.imejl }}
+                <br />
+                {{ zahtev.telefon }}
+              </td>
+              <td>{{ zahtev.uloga == 'ATHLETE' ? 'Sportista' : 'Zaposleni' }}</td>
+              <td>
+                <button (click)="obradi(zahtev.id, true)">Odobri</button>
+                <button class="odbij" (click)="obradi(zahtev.id, false)">Odbij</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  <div class="naslov-sekcije"><h2>Postojeći korisnici</h2></div>
+  @if (korisnikZaIzmenu) {
+    <form class="korisnik-forma" (ngSubmit)="sacuvajKorisnika()">
+      <label>
+        Ime
+        <input name="ime" [(ngModel)]="korisnikZaIzmenu.ime" required />
+      </label>
+      <label>
+        Prezime
+        <input name="prezime" [(ngModel)]="korisnikZaIzmenu.prezime" required />
+      </label>
+      <label>
+        Telefon
+        <input name="telefon" [(ngModel)]="korisnikZaIzmenu.telefon" required />
+      </label>
+      <label>
+        Imejl
+        <input type="imejl" name="imejl" [(ngModel)]="korisnikZaIzmenu.imejl" required />
+      </label>
+      <label>
+        Status
+        <select name="status" [(ngModel)]="korisnikZaIzmenu.status">
+          <option value="ACTIVE">Aktivan</option>
+          <option value="PENDING">Na čekanju</option>
+          <option value="REJECTED">Odbijen</option>
+          <option value="DISABLED">Onemogućen</option>
+        </select>
+      </label>
+      <button>Sačuvaj</button>
+      <button type="button" class="odjava" (click)="korisnikZaIzmenu = null">Odustani</button>
+    </form>
+  }
+  <div class="tabela">
+    <table>
+      <thead>
+        <tr>
+          <th>Korisnik</th>
+          <th>Kontakt</th>
+          <th>Uloga</th>
+          <th>Status</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (k of korisnici; track k.id) {
+          <tr>
+            <td>
+              <strong>{{ k.ime }} {{ k.prezime }}</strong>
+              <br />
+              {{ k.korisnickoIme }}
+            </td>
+            <td>
+              {{ k.imejl }}
+              <br />
+              {{ k.telefon }}
+            </td>
+            <td>{{ k.uloga === 'ATHLETE' ? 'Sportista' : 'Zaposleni' }}</td>
+            <td>{{ k.status }}</td>
+            <td>
+              <button (click)="izaberiKorisnika(k)">Izmeni</button>
+              <button class="odbij" (click)="obrisiKorisnika(k.id)">Obriši nalog</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <h2>Objekti na odobrenju</h2>
+  @if (objekti.length === 0) {
+    <div class="prazno">Nema objekata na čekanju.</div>
+  } @else {
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Objekat</th>
+            <th>Organizacija</th>
+            <th>Resursi</th>
+            <th>Akcije</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (o of objekti; track o.id) {
+            <tr>
+              <td>
+                <strong>{{ o.naziv }}</strong>
+                <br />
+                {{ o.grad }}, {{ o.adresa }}
+              </td>
+              <td>{{ o.organizacija }}</td>
+              <td>{{ o.brojResursa }}</td>
+              <td>
+                <button (click)="obradiObjekat(o.id, true)">Odobri</button>
+                <button class="odbij" (click)="obradiObjekat(o.id, false)">Odbij</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  <div class="naslov-red">
+    <div><h2>Evidencija trenera</h2></div>
+    <form #sportForma="ngForm" (ngSubmit)="dodajSport(sportForma)">
+      <label>
+        Novi sport
+        <input name="nazivSporta" [(ngModel)]="nazivSporta" required maxlength="80" placeholder="Naziv sporta" />
+      </label>
+      <button type="submit" [disabled]="dodavanjeSporta">
+        {{ dodavanjeSporta ? 'Dodavanje...' : 'Dodaj sport' }}
+      </button>
+    </form>
+  </div>
+  @if (treneri.length === 0) {
+    <div class="prazno treneri-rezultat">Nema evidentiranih trenera.</div>
+  } @else {
+    <div class="tabela treneri-rezultat">
+      <table>
+        <thead>
+          <tr>
+            <th>Trener</th>
+            <th>Objekat i sport</th>
+            <th>Ocena i cena</th>
+            <th>Status</th>
+            <th>Akcija</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (trener of treneri; track trener.id) {
+            <tr>
+              <td>
+                <strong>{{ trener.ime }}</strong>
+                <br />
+                {{ trener.specijalizacija }}
+              </td>
+              <td>
+                {{ trener.objekat }}
+                <br />
+                {{ trener.sport }}
+              </td>
+              <td>
+                ★ {{ trener.prosecnaOcena }}
+                <br />
+                {{ trener.cenaPoSatu | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}
+              </td>
+              <td>
+                <span class="status" [class.neaktivan]="!trener.aktivan">{{ trener.aktivan ? 'Aktivan' : 'Deaktiviran' }}</span>
+              </td>
+              <td>
+                @if (trener.aktivan) {
+                  <button class="odbij" (click)="deaktivirajTrenera(trener.id)">Deaktiviraj</button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

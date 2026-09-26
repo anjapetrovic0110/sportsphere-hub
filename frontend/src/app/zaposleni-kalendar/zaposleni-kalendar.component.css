@@ -1,0 +1,114 @@
+section {
+  padding: 3rem clamp(1rem, 6vw, 6rem);
+}
+a {
+  color: #197149;
+}
+.oznaka {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+
+  margin-top: 2rem;
+}
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+.filteri {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 1rem;
+
+  margin-bottom: 2rem;
+}
+.filteri label {
+  color: #23483a;
+
+  display: grid;
+
+  font-weight: bold;
+
+  gap: 0.4rem;
+
+  min-width: 240px;
+}
+.filteri select {
+  border: 1px solid #b8c9c1;
+
+  border-radius: 8px;
+
+  font: inherit;
+
+  padding: 0.7rem;
+}
+.okvir {
+  overflow-x: auto;
+}
+table {
+  border-collapse: separate;
+
+  border-spacing: 4px;
+
+  min-width: 1000px;
+
+  width: 100%;
+}
+th {
+  color: #456358;
+
+  padding: 0.5rem;
+}
+thead th strong {
+  color: #12372a;
+
+  display: block;
+}
+td {
+  background: #eff7f1;
+
+  border-radius: 7px;
+
+  height: 58px;
+
+  padding: 0.35rem;
+
+  color: #23483a;
+}
+td strong,
+td small {
+  display: block;
+
+  font-size: 0.72rem;
+}
+td.pending {
+  background: #fff0bf;
+}
+td.confirmed {
+  background: #d9e8f7;
+}
+td.attended {
+  background: #d9f2e4;
+}
+td.no_show {
+  background: #f3caca;
+}
+td.scheduled {
+  background: #e8ddf5;
+}
+.pomoc {
+  color: #456358;
+}
+.prevuciv {
+  cursor: grab;
+}
+.prevuciv:active {
+  cursor: grabbing;
+
+  opacity: 0.65;
+}

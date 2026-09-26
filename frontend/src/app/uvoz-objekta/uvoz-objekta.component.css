@@ -1,0 +1,53 @@
+section {
+  display: grid;
+
+  gap: 1.3rem;
+
+  padding: 4rem clamp(1.5rem, 8vw, 8rem);
+
+  max-width: 800px;
+}
+a {
+  color: #197149;
+}
+section > p {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+}
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+
+  margin: 0;
+}
+label {
+  background: #eff7f1;
+
+  border-radius: 14px;
+
+  color: #23483a;
+
+  display: grid;
+
+  font-weight: bold;
+
+  gap: 1rem;
+
+  padding: 2rem;
+}
+input {
+  font: inherit;
+}
+small {
+  color: #5a6f67;
+}
+.uspeh {
+  color: #197149;
+}
+.greska {
+  color: #a23030;
+}

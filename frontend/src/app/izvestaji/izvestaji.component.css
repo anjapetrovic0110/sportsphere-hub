@@ -1,0 +1,55 @@
+section {
+  padding: 4rem clamp(1rem, 8vw, 8rem);
+}
+a,
+p,
+strong {
+  color: #197149;
+}
+p {
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+}
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+label {
+  color: #23483a;
+
+  display: flex;
+
+  flex-direction: column;
+
+  font-weight: bold;
+
+  gap: 0.5rem;
+
+  max-width: 320px;
+}
+input {
+  border: 1px solid #b8c9c1;
+
+  border-radius: 8px;
+
+  font: inherit;
+
+  padding: 0.7rem;
+}
+button {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 22px;
+
+  color: white;
+
+  cursor: pointer;
+
+  margin: 1.5rem 0.7rem 1.5rem 0;
+
+  padding: 0.8rem 1.2rem;
+}

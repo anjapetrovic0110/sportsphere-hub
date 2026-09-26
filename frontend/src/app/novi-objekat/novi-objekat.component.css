@@ -1,0 +1,216 @@
+.zaglavlje {
+  background: #071a33;
+
+  color: white;
+
+  padding: 3rem clamp(1.5rem, 8vw, 8rem);
+}
+.zaglavlje a {
+  color: #69b9ff;
+}
+.zaglavlje h1 {
+  color: white;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+
+  margin: 0.8rem 0 0;
+}
+.sadrzaj {
+  background: #f4f9fd;
+
+  padding: 3rem clamp(1.5rem, 8vw, 8rem);
+}
+
+form {
+  background: #dbeeff;
+
+  border: 1px solid #b5cee0;
+
+  border-radius: 18px;
+
+  display: grid;
+
+  gap: 1.5rem;
+
+  margin: auto;
+
+  max-width: 1050px;
+
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+.polja {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 1rem;
+}
+label {
+  color: #173a5e;
+
+  display: flex;
+
+  flex-direction: column;
+
+  font-weight: bold;
+
+  gap: 0.4rem;
+}
+label small {
+  color: #36556f;
+
+  font-weight: normal;
+
+  line-height: 1.4;
+}
+input,
+select,
+textarea {
+  background: white;
+
+  border: 1px solid #b5cee0;
+
+  border-radius: 9px;
+
+  color: #071a33;
+
+  font: inherit;
+
+  min-height: 44px;
+
+  padding: 0.7rem;
+}
+textarea {
+  min-height: 90px;
+
+  resize: vertical;
+}
+h2 {
+  color: #071a33;
+
+  font-size: 2rem;
+
+  margin: 1rem 0 0;
+}
+
+fieldset {
+  background: #102a46;
+
+  border: 1px solid #315f87;
+
+  border-radius: 14px;
+
+  padding: 1.5rem;
+}
+fieldset legend {
+  background: #69b9ff;
+
+  border-radius: 16px;
+
+  color: #071a33;
+
+  font-weight: bold;
+
+  padding: 0.45rem 0.9rem;
+}
+fieldset label {
+  color: white;
+}
+.sportovi {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 0.7rem;
+
+  margin: 1.2rem 0;
+}
+.sportovi label {
+  align-items: center;
+
+  background: #163a5c;
+
+  border: 1px solid #315f87;
+
+  border-radius: 18px;
+
+  flex-direction: row;
+
+  padding: 0.5rem 0.8rem;
+}
+.sportovi input {
+  min-height: auto;
+}
+
+button {
+  background: #1679c4;
+
+  border: 0;
+
+  border-radius: 20px;
+
+  color: white;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  justify-self: start;
+
+  padding: 0.75rem 1.2rem;
+}
+.sekundarno {
+  background: white;
+
+  border: 1px solid #69b9ff;
+
+  color: #071a33;
+}
+.ukloni {
+  background: #315f87;
+}
+.sacuvaj {
+  font-size: 1rem;
+
+  margin-top: 0.5rem;
+
+  min-width: 220px;
+
+  padding: 0.9rem 1.4rem;
+}
+button:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.6;
+}
+.poruka {
+  background: #eaf5ff;
+
+  border-left: 4px solid #1679c4;
+
+  border-radius: 6px;
+
+  color: #071a33;
+
+  line-height: 1.6;
+
+  margin: 0;
+
+  padding: 1rem;
+}
+.uspeh,
+.greska {
+  color: #071a33;
+}
+
+@media (max-width: 650px) {
+  .polja {
+    grid-template-columns: 1fr;
+  }
+  .sadrzaj {
+    padding: 1.5rem 1rem;
+  }
+  form {
+    padding: 1.2rem;
+  }
+}

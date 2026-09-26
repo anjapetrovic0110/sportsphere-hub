@@ -1,0 +1,232 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+
+  font-synthesis: none;
+
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+
+  background: #f4f9fd;
+
+  color: #071a33;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+main .oznaka,
+main .eyebrow,
+main .zaglavlje > p,
+main app-izvestaji > section > p,
+main app-uvoz-objekta > section > p {
+  display: none !important;
+}
+
+main .zaglavlje {
+  background: #071a33 !important;
+
+  color: white;
+
+  padding: 3rem clamp(1.5rem, 8vw, 8rem) !important;
+}
+
+main .zaglavlje h1,
+main .zaglavlje h2,
+main .zaglavlje h3 {
+  color: white !important;
+}
+
+main .zaglavlje a,
+main .zaglavlje p,
+main .oznaka,
+main a {
+  color: #1679c4 !important;
+}
+
+main .zaglavlje a,
+main .zaglavlje p,
+main .hero a {
+  color: #69b9ff !important;
+}
+
+main .hero a.primary {
+  color: #071a33 !important;
+}
+
+main .hero a.secondary {
+  color: white !important;
+}
+
+main h1,
+main h2,
+main h3,
+main h4,
+main legend {
+  color: #071a33 !important;
+}
+
+main .hero h1 {
+  color: white !important;
+}
+
+main button,
+main input[type='submit'] {
+  background-color: #1679c4 !important;
+
+  color: white !important;
+}
+
+main .sekundarno,
+main .drugo,
+main .odjava {
+  background: #dbeeff !important;
+
+  border-color: #69b9ff !important;
+
+  color: #071a33 !important;
+}
+
+main .odbij,
+main .otkazi,
+main .odjavi,
+main .ukloni {
+  background: #071a33 !important;
+
+  color: white !important;
+}
+
+main .admin-strana,
+main .admin-strana h1,
+main .admin-strana h2,
+main .admin-strana h3,
+main .admin-strana h4 {
+  color: white !important;
+}
+
+main .admin-strana .oznaka {
+  color: #69b9ff !important;
+}
+
+main .admin-strana button,
+main .admin-strana .odbij {
+  background: #69b9ff !important;
+
+  color: #071a33 !important;
+}
+
+main .admin-strana input,
+main .admin-strana select,
+main .admin-strana form {
+  border-color: #69b9ff !important;
+}
+
+main .admin-strana table {
+  background: #102a46 !important;
+
+  border-color: #315f87 !important;
+
+  color: #edf8ff !important;
+}
+
+main .admin-strana .prazno {
+  background: #69b9ff !important;
+
+  color: #071a33 !important;
+}
+
+main .admin-strana .status,
+main .admin-strana .status.neaktivan {
+  color: #b9ddf7 !important;
+}
+
+main th button {
+  background: transparent !important;
+
+  color: #173a5e !important;
+}
+
+main .kalendar td button {
+  background: #dbeeff !important;
+
+  border-color: #a8d5f5 !important;
+
+  color: #1679c4 !important;
+}
+
+main .kalendar td button.zauzet {
+  background: #315f87 !important;
+
+  border-color: #315f87 !important;
+
+  color: white !important;
+}
+
+main .kalendar td button.prosao {
+  background: #e7edf2 !important;
+
+  border-color: #cbd7e0 !important;
+
+  color: #6f8190 !important;
+}
+
+main .avatar,
+main .odigrano,
+main .zeleno {
+  background: #1679c4 !important;
+}
+
+main polyline {
+  stroke: #1679c4 !important;
+}
+
+main input,
+main select,
+main textarea,
+main fieldset,
+main form,
+main article,
+main table {
+  border-color: #b5cee0 !important;
+}
+
+main .prazno,
+main .rezervisanje,
+main .organizacija,
+main .bez,
+main .bez-slike {
+  background-color: #eaf5ff !important;
+}
+
+main input[type='checkbox'],
+main input[type='radio'] {
+  accent-color: #1679c4;
+}
+
+main .uspeh,
+main .poruka.uspeh,
+main .status:not(.neaktivan) {
+  color: #1679c4 !important;
+}
+
+main .prazna-nedelja {
+  background: #dbeeff;
+
+  border-left: 4px solid #1679c4;
+
+  border-radius: 6px;
+
+  color: #071a33;
+
+  padding: 1rem;
+}

@@ -1,0 +1,90 @@
+<section class="zaglavlje">
+  <a routerLink="/zaposleni">← Korisnički početni ekran</a>
+  <h1>{{ idObjekta ? 'Izmena sportskog objekta' : 'Dodavanje sportskog objekta' }}</h1>
+</section>
+
+<section class="sadrzaj">
+  <form #f="ngForm" (ngSubmit)="sacuvaj(f)">
+    <div class="polja osnovni-podaci">
+      <label>
+        Naziv
+        <input name="naziv" [(ngModel)]="objekat.naziv" required />
+      </label>
+      <label>
+        Grad
+        <input name="grad" [(ngModel)]="objekat.grad" required />
+      </label>
+      <label>
+        Adresa
+        <input name="adresa" [(ngModel)]="objekat.adresa" required />
+      </label>
+      <label>
+        Opis
+        <textarea name="opis" [(ngModel)]="objekat.opis"></textarea>
+      </label>
+      <label>
+        Otvaranje
+        <input type="time" name="od" [(ngModel)]="objekat.vremeOtvaranja" required />
+      </label>
+      <label>
+        Zatvaranje
+        <input type="time" name="do" [(ngModel)]="objekat.vremeZatvaranja" required />
+      </label>
+      <label>
+        Broj nedolazaka pre zabrane rezervacije
+        <input type="number" name="nedolasci" [(ngModel)]="objekat.dozvoljeniNedolasci" min="1" required />
+        <small>Nakon ovog broja nedolazaka sportista više ne može rezervisati termine u objektu.</small>
+      </label>
+    </div>
+
+    <h2>Resursi</h2>
+    @for (r of objekat.resursi; track $index; let i = $index) {
+      <fieldset>
+        <legend>Resurs {{ i + 1 }}</legend>
+        <div class="polja">
+          <label>
+            Naziv
+            <input [name]="'rn' + i" [(ngModel)]="r.naziv" required />
+          </label>
+          <label>
+            Tip
+            <select [name]="'rt' + i" [(ngModel)]="r.tip">
+              <option value="OUTDOOR_FIELD">Otvoreni teren</option>
+              <option value="INDOOR_FIELD">Zatvoreni teren</option>
+              <option value="SPORTS_HALL">Sportska hala</option>
+            </select>
+          </label>
+
+          <label>
+            Kapacitet
+            <input type="number" [name]="'rk' + i" [(ngModel)]="r.kapacitet" min="1" required />
+          </label>
+          <label>
+            Cena po satu
+            <input type="number" [name]="'rc' + i" [(ngModel)]="r.cenaPoSatu" min="0" required />
+          </label>
+          <label>
+            Oprema
+            <textarea [name]="'ro' + i" [(ngModel)]="r.opisOpreme" maxlength="300"></textarea>
+          </label>
+        </div>
+        <div class="sportovi">
+          @for (s of sportovi; track s.id) {
+            <label>
+              <input type="checkbox" [checked]="r.idSportova.includes(s.id)" (change)="sport(r, s.id, $any($event.target).checked)" />
+              {{ s.naziv }}
+            </label>
+          }
+        </div>
+        <button type="button" class="ukloni" (click)="ukloniResurs(i)">Ukloni resurs</button>
+      </fieldset>
+    }
+    <button type="button" class="sekundarno" (click)="dodajResurs()">+ Dodaj resurs</button>
+    @if (poruka) {
+      <p class="poruka" [class.uspeh]="uspesno" [class.greska]="!uspesno">{{ poruka }}</p>
+    }
+    <button class="sacuvaj" type="submit" [disabled]="slanje">
+      {{ slanje ? 'Slanje...' : 'Pošalji na odobrenje' }}
+    </button>
+  </form>
+</section>

@@ -1,0 +1,111 @@
+<section class="zaglavlje">
+  <a routerLink="/sportista">← Korisnički početni ekran</a>
+  <h1>Pronađi trenera i zakaži termin.</h1>
+</section>
+
+<section class="sadrzaj">
+  <div class="filteri">
+    <label>
+      Sportski objekat
+      <select [(ngModel)]="idObjekta" (ngModelChange)="filtriraj()">
+        <option [ngValue]="0">Svi objekti</option>
+        @for (objekat of objekti(); track objekat[0]) {
+          <option [ngValue]="objekat[0]">{{ objekat[1] }}</option>
+        }
+      </select>
+    </label>
+    <label>
+      Sport
+      <select [(ngModel)]="idSporta" (ngModelChange)="filtriraj()">
+        <option [ngValue]="0">Svi sportovi</option>
+        @for (sport of sportovi(); track sport[0]) {
+          <option [ngValue]="sport[0]">{{ sport[1] }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  @if (ucitavanje) {
+    <p>Učitavanje trenera...</p>
+  } @else if (!treneri.length) {
+    <p class="prazno">Nema aktivnih trenera u odobrenim objektima za izabrane kriterijume. Administrator mora odobriti objekat, a trener mora biti aktivan pre zakazivanja.</p>
+  } @else {
+    <div class="treneri">
+      @for (trener of treneri; track trener.id) {
+        <article [class.izabran]="trening.idTrenera === trener.id">
+          <span>{{ trener.sport }} · {{ trener.objekat }}</span>
+          <h2>{{ trener.ime }}</h2>
+          <p>{{ trener.specijalizacija }}</p>
+          <div class="podaci">
+            <b>★ {{ trener.prosecnaOcena }}</b>
+            <b>{{ trener.cenaPoSatu | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}</b>
+          </div>
+          <button (click)="izaberi(trener)">Izaberi trenera</button>
+        </article>
+      }
+    </div>
+  }
+
+  <form id="zakazivanje" #forma="ngForm" (ngSubmit)="zakazi(forma)">
+    <h2>Zakaži jednočasovni trening</h2>
+    <p>{{ izabraniTrener()?.ime || 'Prvo izaberite trenera iz ponude.' }}</p>
+    <div class="termin">
+      <input type="hidden" name="idTrenera" [(ngModel)]="trening.idTrenera" required min="1" />
+      <label>
+        Datum
+        <input type="date" name="datum" [(ngModel)]="trening.datumTreninga" [min]="danas" required />
+      </label>
+      <label>
+        Početak na pun sat
+        <select name="vreme" [(ngModel)]="trening.vremeTreninga" required [disabled]="!izabraniTrener()">
+          <option value="" disabled>Izaberite vremeTreninga</option>
+          @for (vremeTreninga of vremena(); track vremeTreninga) {
+            <option [value]="vremeTreninga">{{ vremeTreninga }}</option>
+          }
+        </select>
+      </label>
+
+      <button type="submit" [disabled]="cuvanje">
+        {{ cuvanje ? 'Zakazivanje...' : 'Zakaži trening' }}
+      </button>
+    </div>
+  </form>
+
+  @if (poruka) {
+    <p class="poruka" [class.uspeh]="uspesno">{{ poruka }}</p>
+  }
+
+  <h2>Zakazani i održani treninzi</h2>
+  @if (!treninzi.length) {
+    <p class="prazno">Još nemate individualne treninge.</p>
+  } @else {
+    <div class="tabela-okvir">
+      <table>
+        <thead>
+          <tr>
+            <th>Trener</th>
+            <th>Objekat</th>
+            <th>Sport</th>
+            <th>Termin</th>
+            <th>Cena</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (stavka of treninzi; track stavka.id) {
+            <tr>
+              <td>
+                <strong>{{ stavka.trener }}</strong>
+              </td>
+              <td>{{ stavka.objekat }}, {{ stavka.grad }}</td>
+              <td>{{ stavka.sport }}</td>
+              <td>{{ stavka.pocetak | date: 'dd.MM.yyyy. HH:mm' }}–{{ stavka.kraj | date: 'HH:mm' }}</td>
+              <td>{{ stavka.cena | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}</td>
+              <td>{{ nazivStatusa(stavka.status) }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

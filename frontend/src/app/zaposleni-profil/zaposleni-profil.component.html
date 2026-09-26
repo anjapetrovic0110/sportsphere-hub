@@ -1,0 +1,84 @@
+<section class="zaglavlje">
+  <a routerLink="/zaposleni">← Korisnički početni ekran</a>
+  <p>PROFIL ZAPOSLENOG</p>
+  <h1>{{ profil.nazivOrganizacije || 'Moja organizacija' }}</h1>
+</section>
+<section class="sadrzaj">
+  @if (ucitavanje) {
+    <p>Učitavanje...</p>
+  } @else {
+    <form #forma="ngForm" (ngSubmit)="sacuvaj(forma)">
+      <div class="slika">
+        @if (slikaUrl()) {
+          <img [src]="slikaUrl()" alt="Profilna slika" />
+        } @else {
+          <div class="avatar">{{ profil.ime.charAt(0) }}{{ profil.prezime.charAt(0) }}</div>
+        }
+        <label>
+          Nova slika
+          <input type="file" accept="image/png,image/jpeg" (change)="promenaSlike($event)" />
+        </label>
+      </div>
+      <div class="polja">
+        <label>
+          Korisničko ime
+          <input [value]="profil.korisnickoIme" disabled />
+        </label>
+        <label>
+          Ime
+          <input name="ime" [(ngModel)]="profil.ime" required />
+        </label>
+        <label>
+          Prezime
+          <input name="prezime" [(ngModel)]="profil.prezime" required />
+        </label>
+        <label>
+          Telefon
+          <input name="telefon" [(ngModel)]="profil.telefon" required />
+        </label>
+        <label>
+          Imejl
+          <input type="imejl" name="imejl" [(ngModel)]="profil.imejl" required imejl />
+        </label>
+      </div>
+      <div class="organizacija">
+        <h2>Podaci organizacije</h2>
+        <p>{{ profil.adresaSedista }}</p>
+        <span>MB: {{ profil.maticniBroj }}</span>
+        <span>PIB: {{ profil.pib }}</span>
+      </div>
+      @if (poruka) {
+        <p [class.uspeh]="uspesno" [class.greska]="!uspesno">{{ poruka }}</p>
+      }
+      <button type="submit" [disabled]="cuvanje">
+        {{ cuvanje ? 'Čuvanje...' : 'Sačuvaj izmene' }}
+      </button>
+    </form>
+  }
+</section>
+<section class="objekti">
+  <h2>Objekti organizacije</h2>
+  <p>
+    <a routerLink="/zaposleni/objekti/novi">+ Dodaj objekat</a>
+    ·
+    <a routerLink="/zaposleni/objekti/uvoz">JSON uvoz</a>
+  </p>
+  @if (profil.objekti.length === 0) {
+    <p>Organizacija još nema sportske objekte.</p>
+  } @else {
+    <div class="mreza">
+      @for (o of profil.objekti; track o.id) {
+        <article>
+          <span>{{ status(o.status) }}</span>
+          <h3>{{ o.naziv }}</h3>
+          <p>{{ o.grad }}, {{ o.adresa }}</p>
+          <strong>Sportovi</strong>
+          <p>{{ o.sportovi || 'Nisu uneti' }}</p>
+          <strong>Resursi</strong>
+          <p>{{ naziviResursa(o.resursi) }}</p>
+          <a [routerLink]="['/zaposleni/objekti', o.id, 'izmena']">Izmeni objekat</a>
+        </article>
+      }
+    </div>
+  }
+</section>

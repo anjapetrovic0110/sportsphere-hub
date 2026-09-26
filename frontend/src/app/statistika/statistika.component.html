@@ -1,0 +1,60 @@
+<section class="zaglavlje">
+  <a routerLink="/sportista">← Korisnički početni ekran</a>
+  <h1>Moje sportske aktivnosti</h1>
+</section>
+<section>
+  @if (poruka) {
+    <p class="greska">{{ poruka }}</p>
+  }
+  <div class="mreza">
+    <article>
+      <h2>Termini po sportu</h2>
+      <div class="legenda">
+        <span class="zeleno"></span>
+        Odigrano
+        <span class="plavo"></span>
+        Rezervisano
+      </div>
+      @for (s of podaci.sportovi; track s.sport) {
+        <div class="red">
+          <strong>{{ s.sport }}</strong>
+          <div class="barovi">
+            <i class="odigrano" [style.width.%]="(s.odigrano * 100) / maksimumSport()">{{ s.odigrano }}</i>
+            <i class="rezervisano" [style.width.%]="(s.rezervisano * 100) / maksimumSport()">{{ s.rezervisano }}</i>
+          </div>
+        </div>
+      } @empty {
+        <p>Nema termina za prikaz.</p>
+      }
+    </article>
+    <article>
+      <h2>Mesečni trend</h2>
+      @if (podaci.meseci.length) {
+        <svg viewBox="0 0 600 210" uloga="img" aria-label="Mesečni broj aktivnosti">
+          <polyline [attr.points]="tacke()"></polyline>
+          @for (m of podaci.meseci; track m.mesec; let i = $index) {
+            <circle [attr.cx]="xPozicija(i)" [attr.cy]="yPozicija(m.broj)" r="6"></circle>
+            <text class="vrednost" [attr.x]="xPozicija(i)" [attr.y]="yPozicija(m.broj) - 12">
+              {{ m.broj }}
+            </text>
+            <text [attr.x]="xPozicija(i)" y="205">{{ m.mesec.slice(5) }}</text>
+          }
+        </svg>
+      } @else {
+        <p>Nema mesečnih aktivnosti.</p>
+      }
+    </article>
+    <article class="siroko">
+      <h2>Potrošnja sportista na preuzetu opremu</h2>
+      @for (p of podaci.potrosnja; track p.sportista) {
+        <div class="potrosnja">
+          <strong>{{ p.sportista }}</strong>
+          <div><i [style.width.%]="(p.ukupno * 100) / maksimumPotrosnja()"></i></div>
+          <span>{{ p.ukupno | number: '1.0-2' }} RSD</span>
+        </div>
+      } @empty {
+        <p>Nema preuzetih porudžbina.</p>
+      }
+    </article>
+  </div>
+</section>

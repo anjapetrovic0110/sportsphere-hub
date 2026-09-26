@@ -1,0 +1,85 @@
+section {
+  padding: 3rem clamp(1rem, 6vw, 6rem);
+}
+a,
+.oznaka,
+article span {
+  color: #197149;
+}
+.oznaka {
+  font-weight: bold;
+
+  letter-spacing: 0.14em;
+}
+h1 {
+  color: #12372a;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+article {
+  align-items: center;
+
+  background: white;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 12px;
+
+  display: grid;
+
+  gap: 1rem;
+
+  grid-template-columns: 1fr auto auto;
+
+  margin: 1rem 0;
+
+  padding: 1.5rem;
+}
+article h2 {
+  color: #12372a;
+}
+article small {
+  display: block;
+
+  color: #5a6f67;
+
+  margin: 0.3rem 0;
+}
+article > strong {
+  color: #12372a;
+
+  font-size: 1.3rem;
+}
+button {
+  background: #197149;
+
+  border: 0;
+
+  border-radius: 18px;
+
+  color: white;
+
+  cursor: pointer;
+
+  margin: 0.2rem;
+
+  padding: 0.6rem 0.9rem;
+}
+.otkazi {
+  background: #a23030;
+}
+.poruka {
+  color: #197149;
+}
+@media (max-width: 700px) {
+  article {
+    align-items: start;
+
+    grid-template-columns: 1fr;
+  }
+  .akcije {
+    display: flex;
+
+    flex-wrap: wrap;
+  }
+}

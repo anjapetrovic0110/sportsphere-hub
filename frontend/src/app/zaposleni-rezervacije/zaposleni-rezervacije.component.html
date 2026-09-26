@@ -1,0 +1,99 @@
+<section>
+  <a routerLink="/zaposleni">← Korisnički početni ekran</a>
+  <p class="oznaka">REZERVACIJE I TRENINZI</p>
+  <h1>Termini organizacije</h1>
+  <p class="objasnjenje">Rezervaciju ili trening možete potvrditi ili odbiti sve do 10 minuta nakon početka. Posle toga odluka se više ne može menjati. „Potvrdi” znači da je sportista došao, a „Odjavi” dodaje jedan minus zbog nedolaska.</p>
+  @if (poruka) {
+    <p class="poruka">{{ poruka }}</p>
+  }
+
+  <h2>Rezervacije terena i hala</h2>
+  @if (!rezervacije.length) {
+    <div class="prazno">Nema rezervacija.</div>
+  } @else {
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Sportista</th>
+            <th>Objekat</th>
+            <th>Resurs</th>
+            <th>Sport</th>
+            <th>Termin</th>
+            <th>Status</th>
+            <th>Akcije</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (r of rezervacije; track r.id) {
+            <tr>
+              <td>{{ r.sportista }}</td>
+              <td>{{ r.objekat }}</td>
+              <td>{{ r.resurs }}</td>
+              <td>{{ r.sport }}</td>
+              <td>{{ r.pocetak | date: 'dd.MM.yyyy. HH:mm' }}–{{ r.kraj | date: 'HH:mm' }}</td>
+              <td>{{ status(r.status) }}</td>
+              <td class="akcije">
+                @if (cekaEvidencijuRezervacije(r.status)) {
+                  <button [disabled]="!r.mozeEvidencija" [title]="porukaProzora(r.pocetak, r.mozeEvidencija)" (click)="evidentiraj(r.id, 'potvrdi')">Potvrdi</button>
+                  <button class="odjavi" [disabled]="!r.mozeEvidencija" [title]="porukaProzora(r.pocetak, r.mozeEvidencija)" (click)="evidentiraj(r.id, 'odjavi')">Odjavi</button>
+                  @if (!r.mozeEvidencija) {
+                    <small>{{ porukaProzora(r.pocetak, false) }}</small>
+                  }
+                } @else {
+                  <span>—</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <h2>Individualni treninzi</h2>
+  @if (!treninzi.length) {
+    <div class="prazno">Nema zakazanih individualnih treninga.</div>
+  } @else {
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Sportista</th>
+            <th>Trener</th>
+            <th>Objekat</th>
+            <th>Sport</th>
+            <th>Termin</th>
+            <th>Cena</th>
+            <th>Status</th>
+            <th>Akcije</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (t of treninzi; track t.id) {
+            <tr>
+              <td>{{ t.sportista }}</td>
+              <td>{{ t.trener }}</td>
+              <td>{{ t.objekat }}</td>
+              <td>{{ t.sport }}</td>
+              <td>{{ t.pocetak | date: 'dd.MM.yyyy. HH:mm' }}–{{ t.kraj | date: 'HH:mm' }}</td>
+              <td>{{ t.cena | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}</td>
+              <td>{{ status(t.status) }}</td>
+              <td class="akcije">
+                @if (cekaEvidencijuTreninga(t.status)) {
+                  <button [disabled]="!t.mozeEvidencija" [title]="porukaProzora(t.pocetak, t.mozeEvidencija)" (click)="evidentirajTrening(t.id, 'potvrdi')">Potvrdi</button>
+                  <button class="odjavi" [disabled]="!t.mozeEvidencija" [title]="porukaProzora(t.pocetak, t.mozeEvidencija)" (click)="evidentirajTrening(t.id, 'odjavi')">Odjavi</button>
+                  @if (!t.mozeEvidencija) {
+                    <small>{{ porukaProzora(t.pocetak, false) }}</small>
+                  }
+                } @else {
+                  <span>—</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

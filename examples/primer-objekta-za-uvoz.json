@@ -1,0 +1,29 @@
+{
+  "name": "Sportski centar Dunav",
+  "city": "Novi Sad",
+  "address": "Bulevar Evrope 50",
+  "description": "Primer sportskog objekta za proveru JSON uvoza.",
+  "latitude": 45.2551,
+  "longitude": 19.8452,
+  "openingTime": "08:00",
+  "closingTime": "22:00",
+  "allowedNoShows": 3,
+  "resources": [
+    {
+      "name": "Otvoreni fudbalski teren",
+      "type": "OUTDOOR_FIELD",
+      "capacity": 12,
+      "equipmentDescription": "Golovi, mreže, reflektori i lopte",
+      "hourlyPrice": 4000,
+      "sportIds": [1]
+    },
+    {
+      "name": "Košarkaška sala",
+      "type": "SPORTS_HALL",
+      "capacity": 20,
+      "equipmentDescription": "Koševi, semafor i svlačionice",
+      "hourlyPrice": 5000,
+      "sportIds": [2]
+    }
+  ]
+}

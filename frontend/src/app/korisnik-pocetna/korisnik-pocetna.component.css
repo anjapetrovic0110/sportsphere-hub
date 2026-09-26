@@ -1,0 +1,60 @@
+section {
+  padding: clamp(3rem, 8vw, 8rem);
+}
+.oznaka {
+  color: #197149;
+
+  font-weight: bold;
+
+  letter-spacing: 0.15em;
+}
+
+h1 {
+  color: #12372a;
+
+  font-size: clamp(3rem, 7vw, 6rem);
+
+  margin: 1rem 0;
+}
+.status {
+  color: #5a6f67;
+}
+
+.kartice {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1rem;
+
+  margin-top: 3rem;
+}
+article {
+  background: white;
+
+  border: 1px solid #dce4df;
+
+  border-radius: 12px;
+
+  padding: 2rem;
+}
+
+article h2 {
+  color: #12372a;
+}
+article p {
+  color: #5a6f67;
+
+  line-height: 1.6;
+}
+a {
+  color: #197149;
+
+  font-weight: bold;
+}
+
+@media (max-width: 760px) {
+  .kartice {
+    grid-template-columns: 1fr;
+  }
+}

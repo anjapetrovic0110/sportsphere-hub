@@ -1,0 +1,69 @@
+<section>
+  <a routerLink="/zaposleni">← Korisnički početni ekran</a>
+  <p class="oznaka">KALENDAR</p>
+  <h1>Nedeljni raspored</h1>
+  <div class="filteri">
+    <label>
+      Objekat
+      <select [(ngModel)]="izabraniObjekat" (change)="promenaObjekta()">
+        @for (o of objekti(); track o) {
+          <option>{{ o }}</option>
+        }
+      </select>
+    </label>
+    <label>
+      Resurs
+      <select [(ngModel)]="izabraniResurs">
+        @for (r of resursi(); track r) {
+          <option>{{ r }}</option>
+        }
+      </select>
+    </label>
+  </div>
+  @if (poruka) {
+    <p>{{ poruka }}</p>
+  }
+  @if (!izabraniResurs) {
+    <p>Nema rezervacija ili treninga za prikaz.</p>
+  } @else {
+    <p class="pomoc">Termine u zatvorenim terenima i dvoranama prevucite na slobodan budući sat istog resursa.</p>
+    @if (!imaTerminaUNedelji()) {
+      <p class="prazna-nedelja">Za izabrani resurs nema termina u prikazanoj nedelji.</p>
+    }
+    <div class="okvir">
+      <table>
+        <thead>
+          <tr>
+            <th>Sat</th>
+            @for (d of dani; track d) {
+              <th>
+                {{ d | date: 'EEE' }}
+                <strong>{{ d | date: 'dd.MM.' }}</strong>
+              </th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (sat of sati; track sat) {
+            <tr>
+              <th>{{ sat }}:00</th>
+              @for (d of dani; track d) {
+                @let r = termin(d, sat);
+
+                <td [class]="klasa(r)" (dragover)="dozvoliSpustanje(d, sat, $event)" (drop)="spusti(d, sat)">
+                  @if (r) {
+                    <div [draggable]="mozePomeranje(r)" [class.prevuciv]="mozePomeranje(r)" (dragstart)="zapocniPrevucenje(r, $event)">
+                      <strong>{{ naslov(r) }}</strong>
+                      <small>{{ r.sport }}</small>
+                      <small>{{ r.status }}</small>
+                    </div>
+                  }
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

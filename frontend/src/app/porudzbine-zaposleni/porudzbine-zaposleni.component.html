@@ -1,0 +1,33 @@
+<section>
+  <a routerLink="/zaposleni">← Korisnički početni ekran</a>
+  <h1>Obrada porudžbina opreme</h1>
+  @if (poruka) {
+    <p class="poruka">{{ poruka }}</p>
+  }
+  @if (!porudzbine.length) {
+    <p>Nema porudžbina.</p>
+  }
+  @for (p of porudzbine; track p.id) {
+    <article>
+      <div>
+        <h2>{{ p.sportista }}</h2>
+        <p>{{ p.kreirano | date: 'dd.MM.yyyy. HH:mm' }} · {{ status(p.status) }}</p>
+        @for (s of p.stavke; track s.naziv) {
+          <small>{{ s.naziv }} × {{ s.kolicina }} — {{ s.cena | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}</small>
+        }
+      </div>
+      <strong>{{ p.ukupno | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}</strong>
+      <div class="akcije">
+        @if (p.status === 'ORDERED') {
+          <button (click)="obradi(p.id, 'prihvati')">Prihvati</button>
+        }
+        @if (p.status === 'ACCEPTED') {
+          <button (click)="obradi(p.id, 'preuzmi')">Označi preuzeto</button>
+        }
+        @if (p.status === 'ORDERED' || p.status === 'ACCEPTED') {
+          <button class="otkazi" (click)="obradi(p.id, 'otkazi')">Otkaži</button>
+        }
+      </div>
+    </article>
+  }
+</section>

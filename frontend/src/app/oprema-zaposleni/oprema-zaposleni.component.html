@@ -1,0 +1,65 @@
+<section>
+  <a routerLink="/zaposleni">← Korisnički početni ekran</a>
+  <p class="oznaka">KATALOG OPREME</p>
+  <h1>Oprema i zalihe</h1>
+  <form #f="ngForm" (ngSubmit)="sacuvaj(f)">
+    <h2>{{ stavka.id ? 'Izmeni opremu' : 'Nova oprema' }}</h2>
+    <div class="polja">
+      <label>
+        Naziv
+        <input name="naziv" [(ngModel)]="stavka.naziv" required maxlength="160" />
+      </label>
+      <label>
+        Sport
+        <select name="sport" [(ngModel)]="stavka.idSporta" required>
+          <option [ngValue]="0" disabled>Izaberite</option>
+          @for (s of sportovi; track s.id) {
+            <option [ngValue]="s.id">{{ s.naziv }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Cena
+        <input type="number" name="cena" [(ngModel)]="stavka.cena" min="0" step="0.01" required />
+      </label>
+      <label>
+        Zaliha
+        <input type="number" name="zaliha" [(ngModel)]="stavka.zaliha" min="0" required />
+      </label>
+      <label>
+        Slika
+        <input type="file" accept="image/png,image/jpeg" (change)="promenaSlike($event)" />
+      </label>
+      <label class="cek">
+        <input type="checkbox" name="aktivan" [(ngModel)]="stavka.aktivan" />
+        Aktivna
+      </label>
+    </div>
+    @if (pregled) {
+      <img class="pregled" [src]="pregled" alt="Pregled slike" />
+    }
+    <button [disabled]="cuvanje">{{ cuvanje ? 'Čuvanje...' : 'Sačuvaj' }}</button>
+    @if (stavka.id) {
+      <button type="button" class="drugo" (click)="nova()">Odustani</button>
+    }
+  </form>
+  @if (poruka) {
+    <p [class.uspeh]="uspesno" class="poruka">{{ poruka }}</p>
+  }
+  <div class="mreza">
+    @for (o of oprema; track o.id) {
+      <article>
+        @if (slikaUrl(o)) {
+          <img [src]="slikaUrl(o)" [alt]="o.naziv" (error)="greskaSlike(o.id)" />
+        } @else {
+          <div class="bez-slike">Nema slike</div>
+        }
+        <span>{{ o.sport }} · {{ o.aktivan ? 'Aktivna' : 'Neaktivna' }}</span>
+        <h2>{{ o.naziv }}</h2>
+        <strong>{{ o.cena | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}</strong>
+        <p>Zaliha: {{ o.zaliha }}</p>
+        <button (click)="izmeni(o)">Izmeni</button>
+      </article>
+    }
+  </div>
+</section>

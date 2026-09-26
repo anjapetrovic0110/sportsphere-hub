@@ -1,0 +1,129 @@
+<section class="registracija">
+  <div class="uvod">
+    <h1>Pridruži se SportSphere zajednici.</h1>
+    <p>Nakon slanja, administrator mora da odobri zahtev pre prve prijave.</p>
+  </div>
+
+  <form #forma="ngForm" (ngSubmit)="registracija(forma)" novalidate>
+    <fieldset>
+      <legend>Vrsta naloga</legend>
+      <label>
+        <input type="radio" name="uloga" value="ATHLETE" [(ngModel)]="podaci.uloga" />
+        Sportista
+      </label>
+
+      <label>
+        <input type="radio" name="uloga" value="EMPLOYEE" [(ngModel)]="podaci.uloga" />
+        Zaposleni
+      </label>
+    </fieldset>
+
+    <div class="polja">
+      <label>
+        Korisničko ime
+        <input name="korisnickoIme" [(ngModel)]="podaci.korisnickoIme" #korisnickoIme="ngModel" required maxlength="50" [class.neispravno]="korisnickoIme.invalid && korisnickoIme.touched" />
+        <small class="greska-polja" [hidden]="korisnickoIme.valid || !korisnickoIme.touched">Korisničko ime je obavezno.</small>
+      </label>
+
+      <label>
+        Lozinka
+        <input type="password" name="lozinka" autocomplete="new-password" [(ngModel)]="podaci.lozinka" #lozinka="ngModel" required [class.neispravno]="lozinka.invalid && lozinka.touched" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])[A-Za-z].{7,11}$" />
+        <small class="greska-polja" [hidden]="lozinka.valid || !lozinka.touched">Unesite lozinku u propisanom formatu.</small>
+      </label>
+
+      <label>
+        Ime
+        <input name="ime" [(ngModel)]="podaci.ime" #ime="ngModel" required maxlength="80" [class.neispravno]="ime.invalid && ime.touched" />
+        <small class="greska-polja" [hidden]="ime.valid || !ime.touched">Ime je obavezno.</small>
+      </label>
+
+      <label>
+        Prezime
+        <input name="prezime" [(ngModel)]="podaci.prezime" #prezime="ngModel" required maxlength="80" [class.neispravno]="prezime.invalid && prezime.touched" />
+        <small class="greska-polja" [hidden]="prezime.valid || !prezime.touched">Prezime je obavezno.</small>
+      </label>
+
+      <label>
+        Telefon
+        <input name="telefon" [(ngModel)]="podaci.telefon" #telefon="ngModel" required maxlength="30" [class.neispravno]="telefon.invalid && telefon.touched" />
+        <small class="greska-polja" [hidden]="telefon.valid || !telefon.touched">Telefon je obavezan.</small>
+      </label>
+
+      <label>
+        Imejl
+        <input type="imejl" name="imejl" [(ngModel)]="podaci.imejl" #imejl="ngModel" required imejl maxlength="150" [class.neispravno]="imejl.invalid && imejl.touched" />
+        <small class="greska-polja" [hidden]="imejl.valid || !imejl.touched">Unesite ispravnu imejl adresu.</small>
+      </label>
+    </div>
+
+    <p class="pomoc">Lozinka ima 8-12 znakova, počinje slovom i sadrži veliko slovo, broj i specijalan znak.</p>
+
+    <fieldset>
+      <legend>
+        Omiljeni sportovi
+        <small>(najviše 5)</small>
+      </legend>
+      <div class="sportovi">
+        @for (sport of sportovi; track sport.id) {
+          <label>
+            <input type="checkbox" [checked]="podaci.idOmiljenihSportova.includes(sport.id)" [disabled]="!podaci.idOmiljenihSportova.includes(sport.id) && podaci.idOmiljenihSportova.length >= 5" (change)="promenaSporta(sport.id, $any($event.target).checked)" />
+            {{ sport.naziv }}
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    @if (podaci.uloga == 'EMPLOYEE') {
+      <fieldset class="organizacija">
+        <legend>Sportski objekat / pravno lice</legend>
+        <div class="polja">
+          <label>
+            Naziv
+            <input name="nazivOrganizacije" [(ngModel)]="podaci.nazivOrganizacije" #nazivOrganizacije="ngModel" required [class.neispravno]="nazivOrganizacije.invalid && nazivOrganizacije.touched" />
+            <small class="greska-polja" [hidden]="nazivOrganizacije.valid || !nazivOrganizacije.touched">Naziv je obavezan.</small>
+          </label>
+
+          <label>
+            Adresa sedišta
+            <input name="adresaSedista" [(ngModel)]="podaci.adresaSedista" #adresaSedista="ngModel" required [class.neispravno]="adresaSedista.invalid && adresaSedista.touched" />
+            <small class="greska-polja" [hidden]="adresaSedista.valid || !adresaSedista.touched">Adresa je obavezna.</small>
+          </label>
+
+          <label>
+            Matični broj
+            <input name="maticniBroj" [(ngModel)]="podaci.maticniBroj" #maticniBroj="ngModel" required pattern="\d{8}" maxlength="8" [class.neispravno]="maticniBroj.invalid && maticniBroj.touched" />
+            <small class="greska-polja" [hidden]="maticniBroj.valid || !maticniBroj.touched">Matični broj mora imati tačno 8 cifara.</small>
+          </label>
+
+          <label>
+            PIB
+            <input name="pib" [(ngModel)]="podaci.pib" #pib="ngModel" required pattern="[1-9]\d{8}" maxlength="9" [class.neispravno]="pib.invalid && pib.touched" />
+            <small class="greska-polja" [hidden]="pib.valid || !pib.touched">PIB mora imati 9 cifara i ne sme početi nulom.</small>
+          </label>
+        </div>
+      </fieldset>
+    }
+
+    <label class="slika">
+      Profilna slika (PNG/JPG, do 5 MB)
+      <input type="file" accept="image/png,image/jpeg" (change)="promenaSlike($event)" />
+    </label>
+    <div class="avatar-akcije">
+      <span>ili</span>
+      <button type="button" (click)="generisiAvatar()" [disabled]="generisanje">
+        {{ generisanje ? 'Generisanje...' : 'Generiši avatar' }}
+      </button>
+      <small>DiceBear lokalno generiše Avataaars profil na osnovu imena i prezimena.</small>
+    </div>
+    @if (pregledSlike) {
+      <img class="pregled" [src]="pregledSlike" alt="Pregled profilne slike" />
+    }
+
+    <button type="submit" [disabled]="slanje || generisanje">
+      {{ slanje ? 'Slanje...' : 'Pošalji zahtev' }}
+    </button>
+    @if (poruka) {
+      <p class="poruka" [class.uspeh]="uspesno">{{ poruka }}</p>
+    }
+  </form>
+</section>

@@ -1,0 +1,193 @@
+@if (poruka) {
+  <section class="stanje">
+    <p>{{ poruka }}</p>
+    <a routerLink="/objekti">Nazad na pretragu</a>
+  </section>
+} @else if (!objekat) {
+  <section class="stanje"><p>Učitavanje objekta...</p></section>
+} @else {
+  <section class="hero">
+    <a routerLink="/objekti">← Nazad na pretragu</a>
+    <p>{{ objekat.grad }} · {{ objekat.adresa }}</p>
+    <h1>{{ objekat.naziv }}</h1>
+    <div class="meta">
+      <span>👍 {{ objekat.brojLajkova }}</span>
+      <span>👎 {{ objekat.brojDislajkova }}</span>
+      <span>Radno vreme: {{ objekat.radnoVremeOd.slice(0, 5) }}–{{ objekat.radnoVremeDo.slice(0, 5) }}</span>
+    </div>
+  </section>
+  <section class="sadrzaj">
+    <div>
+      <h2>O objektu</h2>
+      <p>{{ objekat.opis || 'Opis objekta nije unet.' }}</p>
+    </div>
+    @if (mapaUrl) {
+      <div>
+        <h2>Lokacija</h2>
+        <iframe class="mapa" [src]="mapaUrl" [title]="'Mapa objekta ' + objekat.naziv" loading="lazy"></iframe>
+      </div>
+    }
+    <div>
+      <h2>Resursi i cene</h2>
+      <div class="resursi">
+        @for (resurs of objekat.resursi; track resurs.id) {
+          <article>
+            <div>
+              <span>{{ nazivTipa(resurs.tip) }}</span>
+              <h3>{{ resurs.naziv }}</h3>
+            </div>
+            <p>{{ resurs.sportovi }}</p>
+            <p>Kapacitet: {{ resurs.kapacitet }}</p>
+            <p>{{ resurs.oprema || 'Opis opreme nije unet.' }}</p>
+            <strong>{{ resurs.cena | number: '1.0-2' }} RSD / sat</strong>
+            @if (korisnik?.uloga === 'ATHLETE') {
+              <button class="izaberi" (click)="izaberiResurs(resurs.id)">Prikaži raspored</button>
+            }
+          </article>
+        }
+      </div>
+    </div>
+    @if (korisnik?.uloga === 'ATHLETE' && zahtev.idResursa != null) {
+      <div class="rezervisanje">
+        <div class="kalendar-zaglavlje">
+          <button type="button" (click)="rotirajResurs(-1)" aria-label="Prethodni resurs">←</button>
+          <div>
+            <small>IZABRANI RESURS</small>
+            <h2>{{ izabraniResurs()?.naziv }}</h2>
+          </div>
+          <button type="button" (click)="rotirajResurs(1)" aria-label="Sledeći resurs">→</button>
+        </div>
+        <div class="legenda">
+          <span>
+            <i class="slobodan"></i>
+            Slobodno
+          </span>
+          <span>
+            <i class="zauzet"></i>
+            Zauzeto
+          </span>
+          <span>
+            <i class="prosao"></i>
+            Prošlo
+          </span>
+        </div>
+        <div class="kalendar-okvir">
+          <table class="kalendar">
+            <thead>
+              <tr>
+                <th>Sat</th>
+                @for (dan of dani; track dan) {
+                  <th>
+                    {{ dan | date: 'EEE' }}
+                    <strong>{{ dan | date: 'dd.MM.' }}</strong>
+                  </th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (sat of sati; track sat) {
+                <tr>
+                  <th>{{ sat }}:00</th>
+                  @for (dan of dani; track dan) {
+                    <td>
+                      <button type="button" [class.zauzet]="zauzet(dan, sat)" [class.prosao]="prosao(dan, sat)" [class.izabran]="izabran(dan, sat)" [disabled]="zauzet(dan, sat) || prosao(dan, sat)" (click)="izaberiTermin(dan, sat)">
+                        {{ zauzet(dan, sat) ? 'Zauzeto' : prosao(dan, sat) ? '—' : 'Slobodno' }}
+                      </button>
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <form #forma="ngForm" (ngSubmit)="rezervisi(forma)">
+          <label>
+            Datum
+            <input type="date" name="datum" [(ngModel)]="zahtev.datum" required />
+          </label>
+          <label>
+            Od
+            <select name="od" [(ngModel)]="zahtev.satOd">
+              @for (sat of sati; track sat) {
+                <option [ngValue]="sat">{{ sat }}:00</option>
+              }
+            </select>
+          </label>
+
+          <label>
+            Do
+            <select name="do" [(ngModel)]="zahtev.satDo">
+              @for (sat of satiDo(); track sat) {
+                <option [ngValue]="sat">{{ sat }}:00</option>
+              }
+            </select>
+          </label>
+
+          <label>
+            Sport
+            <select name="sport" [(ngModel)]="zahtev.idSporta" required>
+              <option [ngValue]="null">Izaberite</option>
+              @for (sport of sportovi; track sport.id) {
+                <option [ngValue]="sport.id">{{ sport.naziv }}</option>
+              }
+            </select>
+          </label>
+
+          <button type="submit">Rezerviši</button>
+        </form>
+        @if (rezervacijaPoruka) {
+          <p [class.uspeh]="uspesno" [class.greska]="!uspesno">{{ rezervacijaPoruka }}</p>
+        }
+      </div>
+    }
+    <div>
+      <h2>Galerija</h2>
+      @if (objekat.slike.length === 0) {
+        <p>Fotografije objekta još nisu dodate.</p>
+      } @else {
+        <div class="galerija">
+          @for (slika of objekat.slike; track slika) {
+            <img [src]="slika" [alt]="objekat.naziv" />
+          }
+        </div>
+      }
+    </div>
+    <div class="reakcije">
+      <h2>Ocene i komentari</h2>
+      @if (korisnik?.uloga === 'ATHLETE') {
+        <form (ngSubmit)="dodajReakciju()">
+          <label>
+            Ocena
+            <select name="reakcija" [(ngModel)]="reakcija">
+              <option value="LIKE">Sviđa mi se</option>
+              <option value="DISLIKE">Ne sviđa mi se</option>
+            </select>
+          </label>
+
+          <label>
+            Komentar (opciono)
+            <textarea name="komentar" [(ngModel)]="komentar" maxlength="1000" rows="3"></textarea>
+          </label>
+          <button [disabled]="preostaloReakcija === 0">Sačuvaj reakciju</button>
+          <small>Preostalo reakcija na osnovu potvrđenih rezervacija: {{ preostaloReakcija }}</small>
+        </form>
+        @if (reakcijaPoruka) {
+          <p>{{ reakcijaPoruka }}</p>
+        }
+      }
+      <div class="komentari">
+        @for (k of objekat.komentari; track k.id) {
+          <article [class.moj]="k.moj">
+            <div>
+              <strong>{{ k.autor }}</strong>
+              <span>{{ k.reakcija === 'LIKE' ? '👍' : '👎' }} · {{ k.vreme | date: 'dd.MM.yyyy. HH:mm' }}</span>
+            </div>
+            <p>{{ k.komentar }}</p>
+          </article>
+        } @empty {
+          <p>Još nema komentara.</p>
+        }
+      </div>
+    </div>
+  </section>
+}

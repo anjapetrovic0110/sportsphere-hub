@@ -1,0 +1,119 @@
+<section class="zaglavlje">
+  <a routerLink="/sportista">← Korisnički početni ekran</a>
+  <h1>Lični podaci</h1>
+</section>
+<section class="sadrzaj">
+  @if (ucitavanje) {
+    <p>Učitavanje profila...</p>
+  } @else {
+    <form #forma="ngForm" (ngSubmit)="sacuvaj(forma)">
+      <div class="slika">
+        @if (slikaUrl() && !slikaNeuspesna) {
+          <img [src]="slikaUrl()" alt="Profilna slika" (error)="slikaNeuspesna = true" />
+        } @else {
+          <div class="avatar">{{ profil.ime.charAt(0) }}{{ profil.prezime.charAt(0) }}</div>
+        }
+        <label>
+          Nova profilna slika
+          <input type="file" accept="image/png,image/jpeg" (change)="promenaSlike($event)" />
+        </label>
+      </div>
+      <div class="polja">
+        <label>
+          Korisničko ime
+          <input [value]="profil.korisnickoIme" disabled />
+        </label>
+        <label>
+          Ime
+          <input name="ime" [(ngModel)]="profil.ime" required maxlength="80" />
+        </label>
+        <label>
+          Prezime
+          <input name="prezime" [(ngModel)]="profil.prezime" required maxlength="80" />
+        </label>
+        <label>
+          Telefon
+          <input name="telefon" [(ngModel)]="profil.telefon" required maxlength="30" />
+        </label>
+        <label>
+          Imejl
+          <input type="imejl" name="imejl" [(ngModel)]="profil.imejl" required imejl maxlength="150" />
+        </label>
+      </div>
+      <fieldset>
+        <legend>
+          Omiljeni sportovi
+          <small>(najviše 5)</small>
+        </legend>
+        <div class="sportovi">
+          @for (sport of sportovi; track sport.id) {
+            <label>
+              <input type="checkbox" [checked]="profil.idOmiljenihSportova.includes(sport.id)" (change)="promenaSporta(sport.id, $any($event.target).checked)" />
+              {{ sport.naziv }}
+            </label>
+          }
+        </div>
+      </fieldset>
+      @if (poruka) {
+        <p [class.uspeh]="uspesno" [class.greska]="!uspesno">{{ poruka }}</p>
+      }
+      <button type="submit" [disabled]="cuvanje">
+        {{ cuvanje ? 'Čuvanje...' : 'Sačuvaj izmene' }}
+      </button>
+    </form>
+  }
+</section>
+<section class="rezervacije">
+  <h2>Moje rezervacije</h2>
+  @if (rezervacije.length === 0) {
+    <p>Još uvek nemate rezervacije.</p>
+  } @else {
+    <div class="tabela-okvir">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <button (click)="sortiraj('objekat')">Objekat{{ oznaka('objekat') }}</button>
+            </th>
+            <th>
+              <button (click)="sortiraj('grad')">Grad{{ oznaka('grad') }}</button>
+            </th>
+            <th>
+              <button (click)="sortiraj('resurs')">Teren / hala{{ oznaka('resurs') }}</button>
+            </th>
+            <th>
+              <button (click)="sortiraj('sport')">Sport{{ oznaka('sport') }}</button>
+            </th>
+            <th>
+              <button (click)="sortiraj('pocetak')">Termin{{ oznaka('pocetak') }}</button>
+            </th>
+            <th>
+              <button (click)="sortiraj('status')">Status{{ oznaka('status') }}</button>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (rezervacija of rezervacije; track rezervacija.id) {
+            <tr>
+              <td>{{ rezervacija.objekat }}</td>
+              <td>{{ rezervacija.grad }}</td>
+              <td>{{ rezervacija.resurs }}</td>
+              <td>{{ rezervacija.sport }}</td>
+              <td>
+                {{ rezervacija.pocetak | date: 'dd.MM.yyyy. HH:mm' }} –
+                {{ rezervacija.kraj | date: 'HH:mm' }}
+              </td>
+              <td>{{ nazivStatusa(rezervacija.status) }}</td>
+              <td>
+                @if (rezervacija.mozeOtkazivanje) {
+                  <button class="otkazi" (click)="otkazi(rezervacija)">Otkaži</button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

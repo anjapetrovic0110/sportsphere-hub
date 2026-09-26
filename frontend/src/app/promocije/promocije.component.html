@@ -1,0 +1,101 @@
+<section class="zaglavlje">
+  <a routerLink="/zaposleni">← Korisnički početni ekran</a>
+  <p>PROMOCIJE</p>
+  <h1>Istaknite ponudu svojih objekata.</h1>
+</section>
+<section class="sadrzaj">
+  <form id="forma-promocije" #forma="ngForm" (ngSubmit)="sacuvaj(forma)">
+    <div class="naslov">
+      <h2>{{ promocija.id ? 'Izmena promocije' : 'Nova promocija' }}</h2>
+      @if (promocija.id) {
+        <button type="button" class="sekundarno" (click)="nova()">Odustani od izmene</button>
+      }
+    </div>
+    <div class="polja">
+      <label>
+        Sportski objekat
+        <select name="idObjekta" [(ngModel)]="promocija.idObjekta" required>
+          <option [ngValue]="0" disabled>Izaberite objekat</option>
+          @for (o of objekti; track o.id) {
+            <option [ngValue]="o.id">{{ o.naziv }}</option>
+          }
+        </select>
+      </label>
+
+      <label>
+        Naziv
+        <input name="naziv" [(ngModel)]="promocija.naziv" required maxlength="160" />
+      </label>
+      <label>
+        Važi od
+        <input type="date" name="datumOd" [(ngModel)]="promocija.datumOd" required />
+      </label>
+      <label>
+        Važi do
+        <input type="date" name="datumDo" [(ngModel)]="promocija.datumDo" required />
+      </label>
+      <label>
+        Sport
+        <select name="idSporta" [(ngModel)]="promocija.idSporta">
+          <option [ngValue]="null">Svi sportovi</option>
+          @for (s of sportovi; track s.id) {
+            <option [ngValue]="s.id">{{ s.naziv }}</option>
+          }
+        </select>
+      </label>
+
+      <label>
+        Vrsta popusta
+        <select name="tip" [(ngModel)]="tipPopusta" (ngModelChange)="promeniTip()">
+          <option value="PERCENT">Procenat</option>
+          <option value="AMOUNT">Fiksni iznos</option>
+        </select>
+      </label>
+
+      @if (tipPopusta === 'PERCENT') {
+        <label>
+          Popust (%)
+          <input type="number" name="procenatPopusta" [(ngModel)]="promocija.procenatPopusta" min="0.01" max="100" step="0.01" required />
+        </label>
+      } @else {
+        <label>
+          Popust (RSD)
+          <input type="number" name="iznosPopusta" [(ngModel)]="promocija.iznosPopusta" min="0.01" step="0.01" required />
+        </label>
+      }
+      <label class="cek">
+        <input type="checkbox" name="aktivan" [(ngModel)]="promocija.aktivan" />
+        Aktivna promocija
+      </label>
+    </div>
+    <button type="submit" [disabled]="cuvanje">
+      {{ cuvanje ? 'Čuvanje...' : 'Sačuvaj promociju' }}
+    </button>
+  </form>
+  @if (poruka) {
+    <p class="poruka" [class.uspeh]="uspesno">{{ poruka }}</p>
+  }
+  <h2>Promocije organizacije</h2>
+  @if (!promocije.length) {
+    <p class="prazno">Još nema promocija.</p>
+  } @else {
+    <div class="mreza">
+      @for (p of promocije; track p.id) {
+        <article [class.neaktivna]="!p.aktivan">
+          <span>{{ p.aktivan ? 'Aktivna' : 'Neaktivna' }}</span>
+          <h3>{{ p.naziv }}</h3>
+          <p>{{ p.objekat }} · {{ p.sport }}</p>
+          <strong>
+            @if (p.procenatPopusta != null) {
+              {{ p.procenatPopusta }}%
+            } @else {
+              {{ p.iznosPopusta | currency: 'RSD' : 'symbol-narrow' : '1.0-0' }}
+            }
+          </strong>
+          <small>{{ p.datumOd | date: 'dd.MM.yyyy.' }} — {{ p.datumDo | date: 'dd.MM.yyyy.' }}</small>
+          <button (click)="izmeni(p)">Izmeni</button>
+        </article>
+      }
+    </div>
+  }
+</section>
